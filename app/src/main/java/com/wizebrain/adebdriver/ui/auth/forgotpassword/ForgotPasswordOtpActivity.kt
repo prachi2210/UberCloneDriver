@@ -9,7 +9,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.adebuser.base.BaseActivity
-import com.example.adebuser.data.api.ApiHelper
+import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.databinding.ActivityForgotPasswordOtpBinding

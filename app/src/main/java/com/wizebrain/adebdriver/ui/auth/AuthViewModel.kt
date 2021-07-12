@@ -2,7 +2,7 @@ package com.wizebrain.adebdriver.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.adebuser.data.api.repository.AppRepository
+import com.wizebrain.adebdriver.data.api.repository.AppRepository
 import com.wizebrain.adebdriver.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MediaType.Companion.toMediaType

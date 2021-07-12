@@ -2,8 +2,8 @@ package com.wizebrain.adebdriver.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.data.api.ApiHelper
-import com.example.adebuser.data.api.repository.AppRepository
+import com.wizebrain.adebdriver.data.api.ApiHelper
+import com.wizebrain.adebdriver.data.api.repository.AppRepository
 import com.wizebrain.adebdriver.ui.auth.AuthViewModel
 
 class ViewModelProviderFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Factory {

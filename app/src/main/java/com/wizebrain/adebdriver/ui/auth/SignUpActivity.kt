@@ -1,14 +1,10 @@
-package com.wizebrain.adebdriver.activity
+package com.wizebrain.adebdriver.ui.auth
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.wizebrain.adebdriver.R
-import com.wizebrain.adebdriver.databinding.ActivityLoginBinding
 import com.wizebrain.adebdriver.databinding.ActivitySignUpBinding
-import com.wizebrain.adebdriver.ui.auth.AuthViewModel
-import com.wizebrain.adebdriver.ui.auth.LoginActivity
 
 class SignUpActivity : AppCompatActivity() {
 

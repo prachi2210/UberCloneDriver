@@ -1,4 +1,4 @@
-package com.example.adebuser.data.api
+package com.wizebrain.adebdriver.data.api
 
 import com.wizebrain.adebdriver.data.api.ApiService
 import okhttp3.RequestBody

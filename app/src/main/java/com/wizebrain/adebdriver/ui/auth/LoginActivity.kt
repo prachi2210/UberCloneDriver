@@ -2,16 +2,14 @@ package com.wizebrain.adebdriver.ui.auth
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.adebuser.base.BaseActivity
-import com.example.adebuser.data.api.ApiHelper
+import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.R
-import com.wizebrain.adebdriver.activity.SignUpActivity
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.databinding.ActivityLoginBinding
 import com.wizebrain.adebdriver.ui.auth.forgotpassword.ForgotPasswordActivity

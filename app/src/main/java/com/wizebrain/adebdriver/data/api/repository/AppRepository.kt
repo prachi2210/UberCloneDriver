@@ -1,7 +1,6 @@
-package com.example.adebuser.data.api.repository
+package com.wizebrain.adebdriver.data.api.repository
 
-import com.example.adebuser.data.api.ApiHelper
-import okhttp3.MultipartBody
+import com.wizebrain.adebdriver.data.api.ApiHelper
 import okhttp3.RequestBody
 
 class AppRepository(var apiHelper: ApiHelper) {
