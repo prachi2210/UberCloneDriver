@@ -11,4 +11,22 @@
     <color name="grey_color">#7A8FA6</color>
     <color name="main">#075897</color>
     <color name="appColor">#075897</color>
+    <color name="blue">#075897</color>
+
+    <color name="dark_blue">#323a95</color>
+
+    <color name="light_blue">#005c97</color>
+    <!--#005C97-->
+    <color name="text_blue">#6199bf</color>
+    <color name="edittext_blue">#e5eef3</color>
+    <color name="text_grey">#9a9ea4</color>
+    <color name="light_green">#11FF00</color>
+    <color name="app_hint_color">#1779BE</color>
+    <color name="textGrey">#EFEDED</color>
+    <color name="appgrey">#4E4E4E</color>
+    <color name="photo_grey">#aaaaaa</color>
+    <color name="filter_grey">#6e6e6e</color>
+    <color name="primary_purple">#7b39ed</color>
+    <color name="faded_blue_color">#2596be</color>
+    <color name="red">#F44336</color>
 </resources>
