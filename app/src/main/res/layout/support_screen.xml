@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/upr_lyt"
+    android:layout_marginTop="@dimen/_15sdp"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Suggested Topics"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/_11ssp"
+        android:id="@+id/ntfcn_title"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="#575151"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="When am I paid each week?"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#575151"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="How is my payment calculated?"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#575151"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Where can I see my trip earnings?"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#575151"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Adding and changing banking info"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#575151"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="My direct deposit is late or missing"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#575151"
+            android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/upr_lyt"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="All Topics"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#575151"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/ic_move"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Trips issues and adjustments"
+            android:layout_height="wrap_content"/>
+            <TextView
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/ic_move"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Using the App"
+            android:layout_height="wrap_content"/>
+            <TextView
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/ic_move"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Account and Payment"
+            android:layout_height="wrap_content"/>
+            <TextView
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/ic_move"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Signing Up"
+            android:layout_height="wrap_content"/>
+            <TextView
+            android:layout_width="match_parent"
+
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Feedback"
+            android:layout_height="wrap_content"/>
+            <TextView
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/ic_move"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="More"
+            android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
+</RelativeLayout>

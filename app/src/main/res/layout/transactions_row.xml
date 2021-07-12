@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Closing Balance"
+            android:layout_height="@dimen/_30sdp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:drawablePadding="@dimen/_15sdp"
+            android:gravity="end|center"
+            android:text="$ 120"
+            android:layout_height="@dimen/_30sdp"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingVertical="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:src="@drawable/logo_icon"
+            android:padding="@dimen/_4sdp"
+            android:id="@+id/logo_img"
+            android:layout_height="@dimen/_40sdp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/balance_lyt"
+
+            android:layout_toRightOf="@+id/logo_img"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:id="@+id/msg_txt"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Balance received from ADEB"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/appColor"
+                android:textSize="@dimen/_14ssp"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/poppins_bold"
+
+                android:text="+ $80"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/logo_img"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@+id/balance_lyt"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="01 Jan 2020"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/poppins_regular"
+
+                android:text="03:18 pm"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

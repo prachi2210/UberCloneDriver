@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RateUserActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/appColor"
+        android:textSize="@dimen/_14ssp"
+        android:text="Rate User"
+        android:layout_height="wrap_content"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/_50sdp"
+        app:civ_border_width="@dimen/_2sdp"
+        android:id="@+id/user_pic"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:civ_border_color="@color/black"
+        android:layout_height="@dimen/_50sdp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/appColor"
+        android:textSize="@dimen/_14ssp"
+        android:text="User Name"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/appColor"
+        android:textSize="@dimen/_10ssp"
+        android:text="Car, Gear type"
+        android:layout_height="wrap_content"/>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:rating="5"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_regular"
+
+        android:textSize="@dimen/_12ssp"
+        android:text="Nice experience!"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+</RelativeLayout>

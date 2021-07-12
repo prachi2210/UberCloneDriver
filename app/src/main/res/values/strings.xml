@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ADEB Driver</string>
+    <string name="login">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="submit">Submit</string>
+    <string name="image">Image</string>
+    <string name="driving_license">Driving License</string>
+    <string name="personal_id">Personal ID</string>
+    <string name="health_report">Health Report</string>
+    <string name="request_document_change"><u>Request document change?</u></string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Payment Method"
+        android:textStyle="bold"
+        android:textSize="@dimen/_11ssp"
+        android:id="@+id/ntfcn_title"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="#575151"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Add Payment Method"
+        android:textStyle="bold"
+        android:textSize="@dimen/_12ssp"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginVertical="@dimen/_9sdp"
+        android:textColor="@color/appColor"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Add the bank account where you want to receive your weekly payments."
+        android:textStyle="bold"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="#575151"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_height="wrap_content"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

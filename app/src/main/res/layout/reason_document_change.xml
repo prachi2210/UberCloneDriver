@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="#5B04F4"
+        android:layout_centerHorizontal="true"
+        android:paddingVertical="@dimen/_2sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textSize="@dimen/_13ssp"
+        android:gravity="center"
+        android:text="Reason for document changes?"
+        android:layout_height="wrap_content"/>
+    <CheckBox
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_13ssp"
+        android:text="Driving License get expired"
+        android:layout_height="wrap_content"/>
+    <CheckBox
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="@dimen/_13ssp"
+        android:text="Have updated His/her personal ID"
+        android:layout_height="wrap_content"/>
+    <CheckBox
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="@dimen/_13ssp"
+        android:text="Others"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:textSize="@dimen/_10ssp"
+        android:hint="tell us the reason"
+        android:layout_height="@dimen/_30sdp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginVertical="@dimen/_20sdp"
+        android:text="Confirm Request"
+        android:fontFamily="@font/poppins_regular"
+        android:id="@+id/login_btn"
+        android:textSize="@dimen/_12ssp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/round_corner_button"
+        android:layout_marginHorizontal="25dp"
+        android:layout_height="45dp"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

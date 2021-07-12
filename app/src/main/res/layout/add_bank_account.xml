@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="@dimen/_25sdp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Add bank Account"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/_11ssp"
+                android:id="@+id/ntfcn_title"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="#575151"
+                android:layout_height="wrap_content"/>
+
+     <ImageView
+         android:layout_width="@dimen/_20sdp"
+         android:layout_gravity="end"
+         android:tint="@color/black"
+         android:src="@drawable/ic_baseline_close_24"
+         android:layout_height="@dimen/_20sdp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Add the bank account where you want to receive your weekly payments."
+            android:textStyle="bold"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#575151"
+            android:layout_marginTop="@dimen/_11sdp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Next"
+            android:paddingVertical="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_11sdp"
+            android:background="@drawable/round_corner_button"
+            android:textStyle="bold"
+            android:layout_gravity="end"
+            android:textSize="@dimen/_9ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>
