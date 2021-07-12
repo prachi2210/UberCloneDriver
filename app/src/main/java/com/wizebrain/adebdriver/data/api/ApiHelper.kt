@@ -1,7 +1,13 @@
 package com.wizebrain.adebdriver.data.api
 
 import com.wizebrain.adebdriver.data.api.ApiService
+import com.wizebrain.adebdriver.ui.auth.response.MessageResponse
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
 class ApiHelper(private val apiService: ApiService) {
 
@@ -12,8 +18,16 @@ class ApiHelper(private val apiService: ApiService) {
         OSType: RequestBody,
         deviceToken: RequestBody,
         latitude: RequestBody?,
-   longitude: RequestBody?
-    ) = apiService.login(userEmail, userPassword, fieldType, OSType, deviceToken,latitude,longitude)
+        longitude: RequestBody?
+    ) = apiService.login(
+        userEmail,
+        userPassword,
+        fieldType,
+        OSType,
+        deviceToken,
+        latitude,
+        longitude
+    )
 
 
     suspend fun signUp(
@@ -21,9 +35,20 @@ class ApiHelper(private val apiService: ApiService) {
         email: RequestBody?,
         phoneNumber: RequestBody?,
         password: RequestBody?,
+        uniqueNumber: RequestBody?,
+        drivingExperience: RequestBody?,
         deviceType: RequestBody?,
         deviceToken: RequestBody?,
-    )= apiService.signUp(name, email, phoneNumber, password,deviceType, deviceToken)
+    ) = apiService.signUp(
+        name,
+        email,
+        phoneNumber,
+        uniqueNumber,
+        drivingExperience,
+        password,
+        deviceType,
+        deviceToken
+    )
 
 
     suspend fun logout(
@@ -55,6 +80,43 @@ class ApiHelper(private val apiService: ApiService) {
         phoneNumber: RequestBody?,
         password: RequestBody?
     ) = apiService.createNewPassword(phoneNumber, password)
+
+
+    suspend fun uploadDrivingLicense(
+        userRef: RequestBody?,
+        dlNo: RequestBody?,
+        carGearType: RequestBody?,
+        frontSideUrl: MultipartBody.Part?,
+        backSideUrl: MultipartBody.Part?
+    ) = apiService.uploadDrivingLicense(userRef, dlNo, carGearType, frontSideUrl, backSideUrl)
+
+
+    suspend fun uploadPersonalId(
+        userRef: RequestBody?,
+        proofType: RequestBody?,
+        proofNo: RequestBody?,
+        dob: RequestBody?,
+        yourPic: MultipartBody.Part?,
+        frontSideUrl: MultipartBody.Part?,
+        backSideUrl: MultipartBody.Part?
+    ) = apiService.uploadPersonalId(
+        userRef,
+        proofType,
+        proofNo,
+        dob,
+        yourPic,
+        frontSideUrl,
+        backSideUrl
+    )
+
+
+    suspend fun uploadHealthReport(
+        userRef: RequestBody?,
+        bloodGroup: RequestBody?,
+        surgery: RequestBody?,
+        dob: RequestBody?,
+        healthReportFile: MultipartBody.Part?
+    ) = apiService.uploadHealthReport(userRef, bloodGroup, surgery, dob, healthReportFile)
 
 
     /*

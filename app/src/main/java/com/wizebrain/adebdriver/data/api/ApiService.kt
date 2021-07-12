@@ -2,6 +2,7 @@ package com.wizebrain.adebdriver.data.api
 import com.wizebrain.adebdriver.ui.auth.response.MessageResponse
 import com.wizebrain.adebdriver.ui.auth.response.SignUpResponse
 import com.wizebrain.adebdriver.ui.auth.response.LoginResponse
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -15,9 +16,12 @@ interface ApiService {
         @Part("name") name: RequestBody?,
         @Part("email") email: RequestBody?,
         @Part("phoneNumber") phoneNumber: RequestBody?,
+        @Part("uniqueNumber") uniqueNumber: RequestBody?,
+        @Part("drivingExperience") drivingExperience: RequestBody?,
         @Part("password") password: RequestBody?,
         @Part("deviceType") deviceType: RequestBody?,
         @Part("deviceToken") deviceToken: RequestBody?,
+
     ): Response<SignUpResponse>
 
 
@@ -71,6 +75,49 @@ interface ApiService {
     ): Response<MessageResponse>
 
 
+
+
+    @Multipart
+    @POST("api/v1/uploadDrivingLicense")
+    suspend fun uploadDrivingLicense(
+        @Part("userRef") userRef: RequestBody?,
+        @Part("dlNo") dlNo: RequestBody?,
+        @Part("carGearType") carGearType: RequestBody?,
+        @Part frontSideUrl: MultipartBody.Part?,
+        @Part backSideUrl: MultipartBody.Part?
+    ): Response<MessageResponse>
+
+
+
+    @Multipart
+    @POST("api/v1/uploadPersonalId")
+    suspend fun uploadPersonalId(
+        @Part("userRef") userRef: RequestBody?,
+        @Part("proofType") proofType: RequestBody?,
+        @Part("proofNo") proofNo: RequestBody?,
+        @Part("dob") dob: RequestBody?,
+        @Part yourPic: MultipartBody.Part?,
+        @Part frontSideUrl: MultipartBody.Part?,
+        @Part backSideUrl: MultipartBody.Part?
+    ): Response<MessageResponse>
+
+
+
+    @Multipart
+    @POST("api/v1/uploadHealthReport")
+    suspend fun uploadHealthReport(
+        @Part("userRef") userRef: RequestBody?,
+        @Part("bloodGroup") bloodGroup: RequestBody?,
+        @Part("surgery") surgery: RequestBody?,
+        @Part("dob") dob: RequestBody?,
+        @Part healthReportFile: MultipartBody.Part?
+    ): Response<MessageResponse>
+
+
+
+
+
+
 /*
     @Multipart
     @POST("api/v1/userOut")
@@ -117,15 +164,6 @@ interface ApiService {
             @Part("email") email: RequestBody?,
             @Part("password") otp: RequestBody?
     ): Response<UpdateStatusResponse>
-
-
-    @Multipart
-    @POST("api/v1/updateProfilePic")
-    suspend fun updateProfilePic(
-            @Part("userRef") userRef: RequestBody?,
-            @Part profilePic: MultipartBody.Part?
-    ): Response<UpdateStatusResponse>
-
 
 
 

@@ -1,6 +1,7 @@
 package com.wizebrain.adebdriver.data.api.repository
 
 import com.wizebrain.adebdriver.data.api.ApiHelper
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class AppRepository(var apiHelper: ApiHelper) {
@@ -21,10 +22,12 @@ class AppRepository(var apiHelper: ApiHelper) {
         name: RequestBody?,
         email: RequestBody?,
         phoneNumber: RequestBody?,
+        uniqueNumber: RequestBody?,
+        drivingExperience: RequestBody?,
         password: RequestBody?,
         deviceType: RequestBody?,
         deviceToken: RequestBody?,
-    )= apiHelper.signUp(name, email, phoneNumber, password,deviceType, deviceToken)
+    )= apiHelper.signUp(name, email, phoneNumber, uniqueNumber,drivingExperience,password,deviceType, deviceToken)
 
 
 
@@ -57,6 +60,49 @@ class AppRepository(var apiHelper: ApiHelper) {
         phoneNumber: RequestBody?,
         password: RequestBody?
     ) = apiHelper.createNewPassword(phoneNumber, password)
+
+
+
+
+    suspend fun uploadDrivingLicense(
+        userRef: RequestBody?,
+        dlNo: RequestBody?,
+        carGearType: RequestBody?,
+        frontSideUrl: MultipartBody.Part?,
+        backSideUrl: MultipartBody.Part?
+    ) = apiHelper.uploadDrivingLicense(userRef, dlNo, carGearType, frontSideUrl, backSideUrl)
+
+
+    suspend fun uploadPersonalId(
+        userRef: RequestBody?,
+        proofType: RequestBody?,
+        proofNo: RequestBody?,
+        dob: RequestBody?,
+        yourPic: MultipartBody.Part?,
+        frontSideUrl: MultipartBody.Part?,
+        backSideUrl: MultipartBody.Part?
+    ) = apiHelper.uploadPersonalId(
+        userRef,
+        proofType,
+        proofNo,
+        dob,
+        yourPic,
+        frontSideUrl,
+        backSideUrl
+    )
+
+
+    suspend fun uploadHealthReport(
+        userRef: RequestBody?,
+        bloodGroup: RequestBody?,
+        surgery: RequestBody?,
+        dob: RequestBody?,
+        healthReportFile: MultipartBody.Part?
+    ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, dob, healthReportFile)
+
+
+
+
 
 
     /*

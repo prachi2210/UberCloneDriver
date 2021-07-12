@@ -5,8 +5,13 @@ import androidx.lifecycle.liveData
 import com.wizebrain.adebdriver.data.api.repository.AppRepository
 import com.wizebrain.adebdriver.utils.Resource
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
 
@@ -21,8 +26,8 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         val fieldType = "phoneNumber".toRequestBody("multipart/form-data".toMediaType())
         val OSType = "Android".toRequestBody("multipart/form-data".toMediaType())
         val deviceToken = token.toRequestBody("multipart/form-data".toMediaType())
-        val latitude="0.0".toRequestBody("multipart/form-data".toMediaType())
-        val longitude="0.0".toRequestBody("multipart/form-data".toMediaType())
+        val latitude = "0.0".toRequestBody("multipart/form-data".toMediaType())
+        val longitude = "0.0".toRequestBody("multipart/form-data".toMediaType())
 
         emit(Resource.loading(data = null))
         try {
@@ -52,15 +57,19 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         email: String,
         phoneNumber: String,
         password: String,
+        uniqueNumber: String,
+        drivingExperience: String,
         token: String,
     ) = liveData(Dispatchers.IO) {
-
         val userName = name.toRequestBody("multipart/form-data".toMediaType())
         val userEmail = email.toRequestBody("multipart/form-data".toMediaType())
         val userPhoneNumber = phoneNumber.toRequestBody("multipart/form-data".toMediaType())
         val userPassword = password.toRequestBody("multipart/form-data".toMediaType())
         val OSType = "Android".toRequestBody("multipart/form-data".toMediaType())
         val deviceToken = token.toRequestBody("multipart/form-data".toMediaType())
+        val userUniqueNumber = uniqueNumber.toRequestBody("multipart/form-data".toMediaType())
+        val drivingExperience = drivingExperience.toRequestBody("multipart/form-data".toMediaType())
+
 
         emit(Resource.loading(data = null))
         try {
@@ -71,6 +80,8 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
                         userName,
                         userEmail,
                         userPhoneNumber,
+                        userUniqueNumber,
+                        drivingExperience,
                         userPassword,
                         OSType,
                         deviceToken
@@ -169,6 +180,8 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
     {
         val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
 
+        /**/
+
         emit(Resource.loading(data = null))
         try {
             emit(
@@ -184,4 +197,129 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
     }
 
 
+    fun uploadDrivingLicense(
+        userRef: String,
+        dlNo: String,
+        carGearType: String,
+        frontSideUrl: File?,
+        backSideUrl: File?
+    ) = liveData(Dispatchers.IO)
+    {
+
+
+        val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
+        val dlNo = dlNo.toRequestBody("multipart/form-data".toMediaType())
+        val carGearType = carGearType.toRequestBody("multipart/form-data".toMediaType())
+        var userFrontSidePhoto: MultipartBody.Part? = null
+        var userBackSidePhoto: MultipartBody.Part? = null
+
+        if (frontSideUrl != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), frontSideUrl)
+            userFrontSidePhoto = MultipartBody.Part.createFormData("frontSideUrl", frontSideUrl.name, requestFile)
+        }
+
+        if (backSideUrl != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), backSideUrl)
+            userFrontSidePhoto = MultipartBody.Part.createFormData("backSideUrl", backSideUrl.name, requestFile)
+        }
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.uploadDrivingLicense(
+                        userRef,dlNo,carGearType,userFrontSidePhoto,userBackSidePhoto
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
+    fun uploadHealthReport(
+        userRef: String,
+        bloodGroup: String,
+        surgery: String,
+        dob: String,
+        healthReportFile: File
+    ) = liveData(Dispatchers.IO)
+    {
+        val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
+        val bloodGroup = bloodGroup.toRequestBody("multipart/form-data".toMediaType())
+        val surgery = surgery.toRequestBody("multipart/form-data".toMediaType())
+        val dob = dob.toRequestBody("multipart/form-data".toMediaType())
+
+        var driverHealthReportFile: MultipartBody.Part? = null
+
+
+        if (healthReportFile != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), healthReportFile)
+            driverHealthReportFile = MultipartBody.Part.createFormData("backSideUrl", healthReportFile.name, requestFile)
+        }
+
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.uploadHealthReport(
+                        userRef,bloodGroup,surgery,dob,driverHealthReportFile
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
+    fun uploadPersonalId(
+        userRef: String,
+        proofType: String,
+        proofNo: String,
+        dob: String,
+        yourPic: File?,
+        frontSideUrl: File?,
+        backSideUrl: File?
+    ) = liveData(Dispatchers.IO)
+    {
+        val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
+        val proofType = proofType.toRequestBody("multipart/form-data".toMediaType())
+        val proofNo = proofNo.toRequestBody("multipart/form-data".toMediaType())
+        val dob = dob.toRequestBody("multipart/form-data".toMediaType())
+        var driverPic: MultipartBody.Part? = null
+        var driverFrontSide: MultipartBody.Part? = null
+        var driverBackSide: MultipartBody.Part? = null
+
+        if (yourPic != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), yourPic)
+            driverPic = MultipartBody.Part.createFormData("backSideUrl", yourPic.name, requestFile)
+        }
+
+        if (frontSideUrl != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), frontSideUrl)
+            driverFrontSide = MultipartBody.Part.createFormData("backSideUrl", frontSideUrl.name, requestFile)
+        }
+
+        if (backSideUrl != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), backSideUrl)
+            driverBackSide = MultipartBody.Part.createFormData("backSideUrl", backSideUrl.name, requestFile)
+        }
+
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.uploadPersonalId(
+                        userRef,proofType,proofNo,dob,driverPic,driverFrontSide,driverBackSide
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
 }
