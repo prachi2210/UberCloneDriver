@@ -116,4 +116,6 @@
     <string name="offline">Offline</string>
     <string name="reject">Reject</string>
     <string name="accept_request">Accept Request</string>
+    <string name="unique_number_error">Unique Identification Number Should Not be empty</string>
+    <string name="driving_exp_error">Driving Experience Should Not be empty</string>
 </resources>

@@ -29,9 +29,8 @@ import com.wizebrain.adebdriver.ui.auth.AuthViewModel
 import com.wizebrain.adebdriver.ui.auth.LoginActivity
 import java.util.ArrayList
 
-class DriverMapActivityScreen : BaseActivity(), View.OnClickListener , OnMapReadyCallback,
+class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReadyCallback,
     RoutingListener {
-
     private val TAG: String = DriverMapActivityScreen::class.java.simpleName
     private lateinit var binding: ActivityDriverMapScreenBinding
     private lateinit var mLocation: Location
@@ -68,23 +67,21 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener , OnMapRead
     }
 
 
-
     private fun requestPermission() {
         if (ContextCompat.checkSelfPermission(
-              this,
+                this,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
             != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                this , arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 LOCATION_REQUEST_CODE
             )
         } else {
             locationPermission = true
         }
     }
-
 
 
     override fun onRequestPermissionsResult(
@@ -122,7 +119,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener , OnMapRead
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        Log.e(TAG,"onMapReady $googleMap")
+        Log.e(TAG, "onMapReady $googleMap")
         mMap = googleMap
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
@@ -151,7 +148,6 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener , OnMapRead
         replace(R.id.frame_container_request, fragment)
         commit()
     }
-
 
 
 }

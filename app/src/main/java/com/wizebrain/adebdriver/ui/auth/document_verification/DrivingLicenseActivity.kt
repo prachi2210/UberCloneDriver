@@ -19,7 +19,7 @@ import com.wizebrain.adebdriver.ui.auth.LoginActivity
 import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
 
-class DrivingLicenseActivity : BaseActivity() , View.OnClickListener {
+class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityDrivingLicenseBinding
     private lateinit var viewModel: AuthViewModel
 

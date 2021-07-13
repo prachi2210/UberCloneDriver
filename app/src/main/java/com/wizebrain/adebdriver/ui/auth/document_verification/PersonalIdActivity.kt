@@ -15,7 +15,7 @@ import com.wizebrain.adebdriver.databinding.ActivityPersonalIdBinding
 import com.wizebrain.adebdriver.ui.auth.AuthViewModel
 import com.wizebrain.adebdriver.utils.Status
 
-class PersonalIdActivity : BaseActivity() , View.OnClickListener {
+class PersonalIdActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityPersonalIdBinding
     private lateinit var viewModel: AuthViewModel
 
@@ -69,18 +69,10 @@ class PersonalIdActivity : BaseActivity() , View.OnClickListener {
             }
         })
     }
+
     override fun onClick(v: View?) {
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }
