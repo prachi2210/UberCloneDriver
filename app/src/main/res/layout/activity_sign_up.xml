@@ -8,6 +8,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:id="@+id/upr_lyt"
         android:layout_height="wrap_content">
 
 
@@ -42,6 +43,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
+        android:layout_below="@+id/upr_lyt"
         android:layout_height="wrap_content">
 
 
@@ -49,7 +51,6 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/_11sdp"
-
         android:layout_height="wrap_content">
 
 
@@ -178,10 +179,10 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_marginTop="24dp"
+            android:layout_marginVertical="@dimen/_20sdp"
             android:text="Sign Up"
             android:fontFamily="@font/poppins_regular"
-            android:id="@+id/login_btn"
+            android:id="@+id/signup_btn"
             android:textSize="13sp"
             android:gravity="center"
             android:textColor="@color/white"
@@ -213,10 +214,11 @@
                 android:id="@+id/sign_up_txt"
                 android:textSize="@dimen/_10ssp"
                 android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
                 android:textColor="@color/main"
                 android:layout_marginEnd="@dimen/_25sdp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_25sdp" />
         </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

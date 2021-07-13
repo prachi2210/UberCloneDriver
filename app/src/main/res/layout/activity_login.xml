@@ -109,7 +109,8 @@
         android:id="@+id/forgot_password_text"
         android:textColor="#000"
         android:layout_marginEnd="@dimen/_25sdp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_25sdp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/_24sdp"
@@ -149,7 +150,8 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:textColor="@color/main"
             android:layout_marginEnd="@dimen/_25sdp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_25sdp" />
     </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
