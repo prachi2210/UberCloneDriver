@@ -47,6 +47,9 @@ class PreferenceManager(context: Context) {
     }
 
 
+
+
+
     fun saveUserEmail(email: String) {
         mEditor.putString(USER_Email, email)
         mEditor.apply()

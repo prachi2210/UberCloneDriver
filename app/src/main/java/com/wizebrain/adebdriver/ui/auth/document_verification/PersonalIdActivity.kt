@@ -73,4 +73,14 @@ class PersonalIdActivity : BaseActivity() , View.OnClickListener {
 
     }
 
+
+
+
+
+
+
+
+
+
+
 }

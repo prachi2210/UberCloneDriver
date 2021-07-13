@@ -16,12 +16,8 @@ import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
 
 class SignUpActivity : BaseActivity(), View.OnClickListener {
-
-
     private lateinit var binding: ActivitySignUpBinding
-
     private lateinit var viewModel: AuthViewModel
-
     companion object {
         fun getStartIntent(context: Context): Intent {
             return Intent(context, SignUpActivity::class.java)
@@ -55,10 +51,14 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                         dismissDialog()
                         resource.data?.let { user ->
                             if (user.body()?.status.equals("success")) {
-
+                                userPreferences.saveUserID(user.body()?.data?.id)
+                                userPreferences.saveUserRef(user.body()?.data?.userRef)
+                                userPreferences.saveName(user.body()?.data?.name)
+                                userPreferences.savePhoto(user.body()?.data?.profilePic)
+                                userPreferences.savePhoneNumber(user.body()?.data?.phoneNumber)
                                 /*     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
-                                         .finishAffinity()
-                                         .startFrom(this)*/
+                                             .finishAffinity()
+                                             .startFrom(this)*/
 
                             } else {
                                 setError(user.body()?.msg.toString())
