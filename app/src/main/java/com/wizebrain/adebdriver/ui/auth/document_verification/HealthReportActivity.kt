@@ -1,5 +1,7 @@
 package com.wizebrain.adebdriver.ui.auth.document_verification
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,6 +20,14 @@ import com.wizebrain.adebdriver.utils.Status
 class HealthReportActivity : BaseActivity() , View.OnClickListener {
     private lateinit var binding: ActivityHealthReportBinding
     private lateinit var viewModel: AuthViewModel
+
+
+
+    companion object {
+        fun getStartIntent(context: Context): Intent {
+            return Intent(context, HealthReportActivity::class.java)
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

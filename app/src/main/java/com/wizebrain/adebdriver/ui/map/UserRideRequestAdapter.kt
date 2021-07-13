@@ -8,6 +8,7 @@ import com.wizebrain.adebdriver.databinding.RvUserRideRequestBinding
 
 public class UserRideRequestAdapter(
     val context: Context,
+    var userRequestCabCallBack:UserCabRequest
 ) :
     androidx.recyclerview.widget.RecyclerView.Adapter<UserRideRequestAdapter.RequestRideViewHolder>() {
 
@@ -35,8 +36,21 @@ public class UserRideRequestAdapter(
         androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         fun bind() {
 
+            binding.btnAccept.setOnClickListener {
+                userRequestCabCallBack.onAcceptReject(1,adapterPosition)
+            }
+
+            binding.btnReject.setOnClickListener {
+                userRequestCabCallBack.onAcceptReject(0,adapterPosition)
+            }
 
         }
 
+    }
+
+    interface UserCabRequest
+    {
+        //accept 1 reject 0
+        fun onAcceptReject(type:Int,position: Int)
     }
 }

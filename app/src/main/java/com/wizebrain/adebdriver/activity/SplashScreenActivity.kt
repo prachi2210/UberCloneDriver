@@ -9,13 +9,15 @@ import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.databinding.ActivityLoginBinding
 import com.wizebrain.adebdriver.databinding.ActivitySplashBinding
 import com.wizebrain.adebdriver.ui.auth.LoginActivity
+import com.wizebrain.adebdriver.ui.auth.SignUpActivity
+import com.wizebrain.adebdriver.ui.auth.document_verification.DrivingLicenseActivity
+import com.wizebrain.adebdriver.ui.auth.document_verification.PersonalIdActivity
 import com.wizebrain.adebdriver.ui.map.DriverMapActivityScreen
 import com.wizebrain.adebdriver.utils.ActivityStarter
 
 class SplashScreenActivity : BaseActivity() {
     private val TAG: String = SplashScreenActivity::class.java.simpleName
     private lateinit var binding: ActivitySplashBinding
-
     companion object {
         var SPLASH_DISPLAY_LENGTH: Long = 1600
     }
@@ -33,7 +35,7 @@ class SplashScreenActivity : BaseActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             when {
                 userPreferences.getUserId().equals("") -> {
-                    ActivityStarter.of(DriverMapActivityScreen.getStartIntent(this))
+                    ActivityStarter.of(PersonalIdActivity.getStartIntent(this))
                         .finishAffinity()
                         .startFrom(this)
                 }
@@ -41,10 +43,15 @@ class SplashScreenActivity : BaseActivity() {
                 else -> {
 
                     //home screem would come intead of login
-                    ActivityStarter.of(DriverMapActivityScreen.getStartIntent(this))
+                    ActivityStarter.of(PersonalIdActivity.getStartIntent(this))
                         .finishAffinity()
                         .startFrom(this)
+
+
                 }
+
+
+
 
 
             }

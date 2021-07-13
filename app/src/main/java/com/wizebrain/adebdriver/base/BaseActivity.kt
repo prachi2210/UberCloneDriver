@@ -347,4 +347,43 @@ private fun generateFcmToken() {
     }
 
 
+    /*  private fun logoutConfirmDialog() {
+        val factory = LayoutInflater.from(this)
+        val deleteDialogView: View = factory.inflate(R.layout.custom_logout_dialog, null)
+        val deleteDialog: AlertDialog = AlertDialog.Builder(this).create()
+        deleteDialog.setView(deleteDialogView)
+        deleteDialogView.findViewById<View>(R.id.relative_confirm_button)
+                .setOnClickListener(object : DialogInterface.OnClickListener,
+                        View.OnClickListener {
+
+
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        deleteDialog.dismiss()
+                    }
+
+                    override fun onClick(v: View?) {
+
+
+                        logoutUser()
+                        deleteDialog.dismiss()
+                    }
+                })
+        deleteDialogView.findViewById<View>(R.id.relative_cancel_button)
+                .setOnClickListener(object : DialogInterface.OnClickListener,
+                        View.OnClickListener {
+
+
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        deleteDialog.dismiss()
+                    }
+
+                    override fun onClick(v: View?) {
+                        deleteDialog.dismiss()
+                    }
+                })
+
+        deleteDialog.show()
+    }
+*/
+
 }

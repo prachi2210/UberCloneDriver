@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:elevation="5dp"
+
         app:theme="@style/ThemeOverlay.AppCompat.Light">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -27,35 +27,40 @@
             android:onClick="onClick"
             android:src="@drawable/profile" />
 
-        <!--    <com.stfalcon.swipeablebutton.SwipeableButton
-                android:id="@+id/swipe_button"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                app:textChecked="@string/online"
-                app:textUnchecked="@string/offline"
 
-                android:scrollbarAlwaysDrawHorizontalTrack="true"
-                />
-    -->
+        <com.wizebrain.adebdriver.utils.custom.SwipeableButton
+            android:id="@+id/swipe_button"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            app:durationAnimation="250"
+            app:isClickToSwipeEnable="false"
+            app:thresholdEnd="0.3"
+            app:thresholdStart="0.7"
+            app:textChecked="@string/online"
+            app:textSize="8sp"
+            app:textUnchecked="@string/offline"
+            />
+
+
 
 
     </RelativeLayout>
 
 
-
-
-
     <FrameLayout
+        android:id="@+id/frame_online"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         >
 
         <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:id="@+id/map"/>
+            android:layout_marginTop="@dimen/_10sdp" />
 
 
         <FrameLayout
@@ -63,12 +68,22 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
             android:layout_gravity="bottom"
-            android:padding="@dimen/_10sdp"
-            />
+            android:padding="@dimen/_10sdp" />
+
+
+        <FrameLayout
+            android:id="@+id/frame_ride_start"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250sdp"
+            android:layout_gravity="bottom"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingTop="@dimen/_10sdp"
+
+         />
+
+
     </FrameLayout>
-
-
-
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

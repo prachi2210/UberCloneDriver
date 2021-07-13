@@ -29,4 +29,6 @@
     <color name="primary_purple">#7b39ed</color>
     <color name="faded_blue_color">#2596be</color>
     <color name="red">#F44336</color>
+    <color name="dimgray">#504b66</color>
+
 </resources>

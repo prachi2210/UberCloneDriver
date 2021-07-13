@@ -1,5 +1,7 @@
 package com.wizebrain.adebdriver.ui.auth.document_verification
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,6 +21,13 @@ class PersonalIdActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityPersonalIdBinding
     private lateinit var viewModel: AuthViewModel
 
+
+
+    companion object {
+        fun getStartIntent(context: Context): Intent {
+            return Intent(context, PersonalIdActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

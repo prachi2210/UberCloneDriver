@@ -9,9 +9,10 @@ import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.BaseFragment
 import com.wizebrain.adebdriver.databinding.FragmentUserRideDetailsBinding
 import com.wizebrain.adebdriver.databinding.FragmentUserRideRequestBinding
+import com.wizebrain.adebdriver.ui.map.ride.listener.UserRideAcceptRejectListener
 
 
-class UserRideDetailsFragment : BaseFragment() {
+class UserRideDetailsFragment() : BaseFragment() {
 
 
     private val binding get() = _binding!!

@@ -10,7 +10,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/close_fragment"
+        android:id="@+id/tv_close_fragment"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/drawable_upper_white_curve"
@@ -21,7 +21,7 @@
         android:fontFamily="@font/poppins_medium"
         android:gravity="center_vertical"
         android:padding="15dp"
-        android:text="15 mins to reach"
+        android:text="@string/reached_the_pick_up_point"
         android:textColor="@color/light_blue"
         android:textSize="16sp" />
 
@@ -56,7 +56,6 @@
             app:layout_constraintTop_toTopOf="@+id/iv_profile" />
 
 
-
         <TextView
             android:id="@+id/tv_type"
             android:layout_width="wrap_content"
@@ -83,8 +82,6 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_profile" />
-
-
 
 
         <TextView
@@ -171,44 +168,20 @@
 
     </RelativeLayout>
 
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/favoriteDriver"
+    <TextView
+        android:id="@+id/tv_ride_status"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_50sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:background="@drawable/round_corner_button"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="Start trip"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/iv_call_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_phone_big"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_weight="1"
-            android:padding="@dimen/_5sdp"
-            />
-
-
-        <ImageView
-            android:id="@+id/iv_msg_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_message"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_weight="1"
-            android:padding="@dimen/_5sdp"
-            />
-
-
-
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

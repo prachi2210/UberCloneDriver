@@ -10,6 +10,7 @@ import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.databinding.ActivityDocumentBinding
 import com.wizebrain.adebdriver.databinding.ActivityLoginBinding
 import com.wizebrain.adebdriver.ui.auth.SignUpActivity
+import com.wizebrain.adebdriver.utils.ActivityStarter
 
 class DocumentActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityDocumentBinding
@@ -28,6 +29,25 @@ class DocumentActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        when (v) {
+
+            binding.tvDrivingLicense -> {
+                ActivityStarter.of(DrivingLicenseActivity.getStartIntent(this))
+                    .startFrom(this)
+            }
+
+            binding.tvPersonalIdCard -> {
+                ActivityStarter.of(PersonalIdActivity.getStartIntent(this))
+                    .startFrom(this)
+            }
+
+            binding.tvHealthCard -> {
+                ActivityStarter.of(HealthReportActivity.getStartIntent(this))
+
+                    .startFrom(this)
+            }
+
+        }
 
     }
 

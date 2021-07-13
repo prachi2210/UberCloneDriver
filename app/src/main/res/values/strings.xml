@@ -118,4 +118,11 @@
     <string name="accept_request">Accept Request</string>
     <string name="unique_number_error">Unique Identification Number Should Not be empty</string>
     <string name="driving_exp_error">Driving Experience Should Not be empty</string>
+    <string name="cancel_trip">Cancel Trip</string>
+    <string name="cancellation_charge_will_be_deducted_from_your_account_with_respect_to_out_cancellation_policy">Cancellation charge will be deducted from your account with respect to out Cancellation Policy</string>
+    <string name="cancel_request">Cancel Request ?</string>
+    <string name="reached_the_pick_up_point">Reached the Pick up point</string>
+    <string name="checked_text">Swipe to deactivate</string>
+    <string name="unchecked_text">Swipe to activate</string>
+
 </resources>

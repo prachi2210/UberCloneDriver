@@ -2,7 +2,6 @@ package com.wizebrain.adebdriver.ui.auth
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
@@ -49,6 +48,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     private fun signUp() {
 
         when {
+
+            checkEmpty(binding.etName) -> {
+                setError(getString(R.string.name_error))
+            }
+
             checkEmpty(binding.etEmail) -> {
                 setError(getString(R.string.email_empty_error))
             }
@@ -80,7 +84,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
             else -> {
                 viewModel.signUp(
-                    userPreferences.getUserREf(),
+                    binding.etName.text.toString().trim(),
                     binding.etEmail.text.toString().trim(),
                     binding.etMobile.text.toString().trim(),
                     binding.etPassword.text.toString().trim(),
@@ -99,7 +103,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                                         userPreferences.saveName(user.body()?.data?.name)
                                         userPreferences.savePhoto(user.body()?.data?.profilePic)
                                         userPreferences.savePhoneNumber(user.body()?.data?.phoneNumber)
-
                                         ActivityStarter.of(DocumentActivity.getStartIntent(this))
                                             .finishAffinity()
                                             .startFrom(this)
