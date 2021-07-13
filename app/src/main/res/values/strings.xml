@@ -112,4 +112,8 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="cash">Cash</string>
     <string name="debit_credit_card">Debit/Credit Card</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="reject">Reject</string>
+    <string name="accept_request">Accept Request</string>
 </resources>

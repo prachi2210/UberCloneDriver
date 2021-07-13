@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/drawable_upper_white_curve"
+    android:elevation="@dimen/_5sdp"
+    android:minHeight="250dp"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/close_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/drawable_upper_white_curve"
+        android:drawableStart="@drawable/ic_arrow_down"
+        android:drawablePadding="@dimen/_20sdp"
+        android:drawableTint="@color/blue"
+        android:elevation="5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        android:text="15 mins to reach"
+        android:textColor="@color/light_blue"
+        android:textSize="16sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_10sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:src="@drawable/profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="User Name"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+
+
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins"
+            android:text="Regular"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="$80"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+
+
+
+
+        <TextView
+            android:id="@+id/tv_payment_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/poppins"
+            android:text="Cash"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart='20dp'
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/edittext_blue"
+            app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_20sdp">
+
+
+        <TextView
+            android:id="@+id/toAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawablePadding="@dimen/_12sdp"
+            android:fontFamily="@font/poppins"
+            android:text="16th Avenue, 4th Cross Street "
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_purple_cirlce" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/toAddress"
+            android:layout_marginStart='20dp'
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/edittext_blue" />
+
+        <TextView
+            android:id="@+id/dashLine"
+            android:layout_width="4dp"
+            android:layout_height="23dp"
+            android:layout_below="@+id/toAddress"
+            android:layout_marginStart="1.5dp"
+            android:layout_marginTop="-3dp"
+            android:background="@drawable/drawable_dash_line"
+            android:gravity="center"
+            android:layerType="software" />
+
+
+        <TextView
+            android:id="@+id/FromAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dashLine"
+            android:layout_marginTop="-4dp"
+            android:drawablePadding="@dimen/_12sdp"
+            android:fontFamily="@font/poppins"
+            android:text="Home"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_blue_circle" />
+
+    </RelativeLayout>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/favoriteDriver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/iv_call_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_phone_big"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_msg_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            />
+
+
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

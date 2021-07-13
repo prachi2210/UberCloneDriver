@@ -243,7 +243,7 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         bloodGroup: String,
         surgery: String,
         dob: String,
-        healthReportFile: File
+        healthReportFile: File?
     ) = liveData(Dispatchers.IO)
     {
         val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())

@@ -1,7 +1,5 @@
-package com.wizebrain.adebdriver.ui.auth
+package com.wizebrain.adebdriver.ui.auth.document_verification
 
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,32 +7,26 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.adebuser.base.BaseActivity
 import com.example.adebuser.data.api.RetrofitBuilder
+import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.data.api.ApiHelper
-import com.wizebrain.adebdriver.databinding.ActivitySignUpBinding
-import com.wizebrain.adebdriver.utils.Constants
+import com.wizebrain.adebdriver.databinding.ActivityDrivingLicenseBinding
+import com.wizebrain.adebdriver.databinding.ActivityHealthReportBinding
+import com.wizebrain.adebdriver.ui.auth.AuthViewModel
 import com.wizebrain.adebdriver.utils.Status
 
-class SignUpActivity : BaseActivity(), View.OnClickListener {
-
-
-    private lateinit var binding: ActivitySignUpBinding
-
+class HealthReportActivity : BaseActivity() , View.OnClickListener {
+    private lateinit var binding: ActivityHealthReportBinding
     private lateinit var viewModel: AuthViewModel
-
-    companion object {
-        fun getStartIntent(context: Context): Intent {
-            return Intent(context, SignUpActivity::class.java)
-        }
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        binding = ActivityHealthReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewModel()
     }
+
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
@@ -44,10 +36,10 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    private fun signUp() {
-        viewModel.signUp(
+    private fun uploadHealthReport() {
+        viewModel.uploadHealthReport(
             userPreferences.getUserREf(),
-            "", "", "", "", "", Constants.DEVICE_TOKEN
+            "", "", "", null
         ).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -81,6 +73,5 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
 
     }
-
 
 }

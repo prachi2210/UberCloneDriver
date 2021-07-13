@@ -15,7 +15,15 @@ class AppRepository(var apiHelper: ApiHelper) {
         deviceToken: RequestBody,
         latitude: RequestBody?,
         longitude: RequestBody?
-    ) = apiHelper.getLogin(userEmail, userPassword, fieldType, OSType, deviceToken,latitude,longitude)
+    ) = apiHelper.getLogin(
+        userEmail,
+        userPassword,
+        fieldType,
+        OSType,
+        deviceToken,
+        latitude,
+        longitude
+    )
 
 
     suspend fun signUp(
@@ -27,9 +35,16 @@ class AppRepository(var apiHelper: ApiHelper) {
         password: RequestBody?,
         deviceType: RequestBody?,
         deviceToken: RequestBody?,
-    )= apiHelper.signUp(name, email, phoneNumber, uniqueNumber,drivingExperience,password,deviceType, deviceToken)
-
-
+    ) = apiHelper.signUp(
+        name,
+        email,
+        phoneNumber,
+        uniqueNumber,
+        drivingExperience,
+        password,
+        deviceType,
+        deviceToken
+    )
 
 
     suspend fun logout(
@@ -60,8 +75,6 @@ class AppRepository(var apiHelper: ApiHelper) {
         phoneNumber: RequestBody?,
         password: RequestBody?
     ) = apiHelper.createNewPassword(phoneNumber, password)
-
-
 
 
     suspend fun uploadDrivingLicense(
@@ -99,10 +112,6 @@ class AppRepository(var apiHelper: ApiHelper) {
         dob: RequestBody?,
         healthReportFile: MultipartBody.Part?
     ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, dob, healthReportFile)
-
-
-
-
 
 
     /*
