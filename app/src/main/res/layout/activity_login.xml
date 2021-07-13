@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginActivity">
+    tools:context=".ui.auth.LoginActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -73,10 +73,11 @@
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="6dp"
                 android:drawableTint="@color/grey_color"
-                android:id="@+id/email_login"
+                android:id="@+id/et_mobile"
                 android:layout_margin="@dimen/_2sdp"
                 android:textSize="@dimen/_10ssp"
-                android:fontFamily="@font/poppins_light"/>
+                android:fontFamily="@font/poppins_light"
+                android:drawableStart="@drawable/ic_phone" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldPassword"
@@ -85,13 +86,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp">
             <com.google.android.material.textfield.TextInputEditText
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_lock"
                 android:drawablePadding="@dimen/_6sdp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:id="@+id/pawrd_login"
+                android:id="@+id/et_password"
 
                 android:textSize="@dimen/_10ssp"
                 android:fontFamily="@font/poppins_light"/>
@@ -106,19 +108,21 @@
         android:layout_gravity="end"
         android:layout_marginTop="5dp"
         android:textSize="12sp"
-        android:id="@+id/forgot_password_text"
+        android:id="@+id/tv_forgot_password"
+        android:onClick="onClick"
         android:textColor="#000"
         android:layout_marginEnd="@dimen/_25sdp"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/_25sdp" />
     <TextView
+        android:id="@+id/tv_login"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/_24sdp"
         android:text="@string/login"
         android:fontFamily="@font/poppins_regular"
-        android:id="@+id/login_btn"
         android:textSize="@dimen/_12ssp"
         android:gravity="center"
+        android:onClick="onClick"
         android:textColor="@color/white"
         android:background="@drawable/round_corner_button"
         android:layout_marginHorizontal="25dp"
@@ -140,11 +144,12 @@
             android:textColor="#000"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:text=" SignUp"
             android:textStyle="bold"
+            android:onClick="onClick"
             android:fontFamily="@font/poppins_regular"
-            android:id="@+id/sign_up_txt"
             android:textSize="@dimen/_10ssp"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/_5sdp"

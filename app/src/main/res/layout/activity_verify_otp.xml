@@ -176,7 +176,7 @@
             android:layout_height="45dp"/>
         <TextView
             android:layout_width="wrap_content"
-            android:text="REsend code in 02:59"
+            android:text="Resend code in 02:59"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_10sdp"

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.wizebrain.adebdriver.MainActivity
 import com.wizebrain.adebdriver.R
-import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -17,8 +16,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun init(){
-sign_up_txt.setOnClickListener { startActivity(Intent(this@LoginActivity, SignUpActivity::class.java)) }
- login_btn.setOnClickListener { startActivity(Intent(this@LoginActivity, MainActivity::class.java)) }
+//sign_up_txt.setOnClickListener { startActivity(Intent(this@LoginActivity, SignUpActivity::class.java)) }
+// login_btn.setOnClickListener { startActivity(Intent(this@LoginActivity, MainActivity::class.java)) }
 
     }
 

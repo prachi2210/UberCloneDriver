@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="time_period">
+        <item>1 Hr</item>
+        <item>3 Hrs</item>
+        <item>5 Hrs</item>
+        <item>7 Hrs</item>
+        <item>9 Hrs</item>
+        <item>11 Hrs</item>
+        <item>13 Hrs</item>
+        <item>15 Hrs</item>
+        <item>17 Hrs</item>
+        <item>19 Hrs</item>
+        <item>21 Hrs</item>
+        <item>23 Hrs</item>
+    </string-array>
+</resources>
