@@ -109,9 +109,8 @@ class AppRepository(var apiHelper: ApiHelper) {
         userRef: RequestBody?,
         bloodGroup: RequestBody?,
         surgery: RequestBody?,
-        dob: RequestBody?,
         healthReportFile: MultipartBody.Part?
-    ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, dob, healthReportFile)
+    ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, healthReportFile)
 
 
     /*

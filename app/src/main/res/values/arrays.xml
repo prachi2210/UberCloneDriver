@@ -15,4 +15,22 @@
         <item>21 Hrs</item>
         <item>23 Hrs</item>
     </string-array>
+    <string-array name="blood_group">
+        <item>Select</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
+
+
+    <string-array name="any_surgery">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 </resources>

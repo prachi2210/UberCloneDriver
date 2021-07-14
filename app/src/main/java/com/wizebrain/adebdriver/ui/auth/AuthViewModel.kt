@@ -242,14 +242,13 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         userRef: String,
         bloodGroup: String,
         surgery: String,
-        dob: String,
         healthReportFile: File?
     ) = liveData(Dispatchers.IO)
     {
         val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
         val bloodGroup = bloodGroup.toRequestBody("multipart/form-data".toMediaType())
         val surgery = surgery.toRequestBody("multipart/form-data".toMediaType())
-        val dob = dob.toRequestBody("multipart/form-data".toMediaType())
+
 
         var driverHealthReportFile: MultipartBody.Part? = null
 
@@ -265,7 +264,7 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
             emit(
                 Resource.success(
                     data = appRepository.uploadHealthReport(
-                        userRef,bloodGroup,surgery,dob,driverHealthReportFile
+                        userRef,bloodGroup,surgery,driverHealthReportFile
                     )
                 )
             )

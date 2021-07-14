@@ -47,8 +47,7 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
 
     private fun uploadDrivingLicense() {
         viewModel.uploadDrivingLicense(
-            userPreferences.getUserREf(),
-            "", "", null, null
+            userPreferences.getUserDetails()?.userRef.toString(), "", "", null, null
         ).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {

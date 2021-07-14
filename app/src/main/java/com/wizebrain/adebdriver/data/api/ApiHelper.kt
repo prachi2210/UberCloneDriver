@@ -114,9 +114,9 @@ class ApiHelper(private val apiService: ApiService) {
         userRef: RequestBody?,
         bloodGroup: RequestBody?,
         surgery: RequestBody?,
-        dob: RequestBody?,
+
         healthReportFile: MultipartBody.Part?
-    ) = apiService.uploadHealthReport(userRef, bloodGroup, surgery, dob, healthReportFile)
+    ) = apiService.uploadHealthReport(userRef, bloodGroup, surgery, healthReportFile)
 
 
     /*

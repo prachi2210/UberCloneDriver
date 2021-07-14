@@ -3,19 +3,26 @@ package com.wizebrain.adebdriver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.wizebrain.adebdriver.model.Dataclass
+import com.bumptech.glide.annotation.GlideExtension
+import com.wizebrain.adebdriver.databinding.ActivityMainBinding
+import com.wizebrain.adebdriver.model.RowData
 
 class MainActivity : AppCompatActivity() {
-    private var homeDataList: ArrayList<Dataclass> = ArrayList()
+
+    private lateinit var binding:ActivityMainBinding
+    private var homeDataList: ArrayList<RowData> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        //setContentView(R.layout.activity_main)
         init()
     }
 
     fun init(){
-//        title_text.visibility=View.GONE
-//        endView.visibility=View.VISIBLE
-//        endView.setImageResource(R.drawable.ic_me)
+        binding.header.titleText.visibility= View.GONE
+        binding.header.endView.visibility=View.VISIBLE
+        binding.header.endView.setImageResource(R.drawable.ic_me)
+
     }
 }

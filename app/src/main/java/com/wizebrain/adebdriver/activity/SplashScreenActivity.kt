@@ -33,7 +33,7 @@ class SplashScreenActivity : BaseActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             when {
                 userPreferences.getUserId().equals("") -> {
-                    ActivityStarter.of(DriverMapActivityScreen.getStartIntent(this))
+                    ActivityStarter.of(LoginActivity.getStartIntent(this))
                         .finishAffinity()
                         .startFrom(this)
                 }

@@ -20,6 +20,7 @@ import com.wizebrain.adebdriver.utils.Status
 class LoginActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: AuthViewModel
+
     companion object {
 
         fun getStartIntent(context: Context): Intent {
@@ -32,6 +33,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         setupViewModel()
     }
 
@@ -87,11 +90,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                 dismissDialog()
                                 resource.data?.let { user ->
                                     if (user.body()?.status.equals("success")) {
-                                        userPreferences.saveUserID(user.body()?.UserInfo?.id)
-                                        userPreferences.saveUserRef(user.body()?.UserInfo?.userRef)
-                                        userPreferences.saveName(user.body()?.UserInfo?.name)
-                                        userPreferences.savePhoto(user.body()?.UserInfo?.profilePic)
-                                        userPreferences.savePhoneNumber(user.body()?.UserInfo?.phoneNumber)
+                                        userPreferences.saveUserDetails(user.body()?.UserInfo)
+//                                        userPreferences.saveUserID(user.body()?.UserInfo?.id)
+//                                        userPreferences.saveUserRef(user.body()?.UserInfo?.userRef)
+//                                        userPreferences.saveName(user.body()?.UserInfo?.name)
+//                                        userPreferences.savePhoto(user.body()?.UserInfo?.profilePic)
+//                                        userPreferences.savePhoneNumber(user.body()?.UserInfo?.phoneNumber)
                                         /*     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
                                                  .finishAffinity()
                                                  .startFrom(this)*/

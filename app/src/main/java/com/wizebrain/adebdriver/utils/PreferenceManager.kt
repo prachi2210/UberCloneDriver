@@ -2,6 +2,8 @@ package com.wizebrain.adebdriver.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.wizebrain.adebdriver.ui.auth.response.UserInfo
 
 
 class PreferenceManager(context: Context) {
@@ -116,5 +118,16 @@ class PreferenceManager(context: Context) {
         return sharedPreferences.getString(PHOTO, "")!!
     }
 
+    fun saveUserDetails(selfDetails: UserInfo?) {
+//        this.prefsEditor = appSharedPrefs.edit()
+        val gson = Gson()
+        val json = gson.toJson(selfDetails)
+        mEditor.putString("user_details", json)
+        mEditor.commit()
+    }
 
+    fun getUserDetails(): UserInfo? {
+        val user_data= sharedPreferences.getString("user_details","")
+        return Gson().fromJson(user_data, UserInfo::class.java)
+    }
 }

@@ -105,7 +105,6 @@ interface ApiService {
         @Part("userRef") userRef: RequestBody?,
         @Part("bloodGroup") bloodGroup: RequestBody?,
         @Part("surgery") surgery: RequestBody?,
-        @Part("dob") dob: RequestBody?,
         @Part healthReportFile: MultipartBody.Part?
     ): Response<MessageResponse>
 
