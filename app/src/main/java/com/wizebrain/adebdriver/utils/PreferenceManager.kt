@@ -16,6 +16,12 @@ class PreferenceManager(context: Context) {
     private val PHONENUMBER = "phoneNumber"
     private val NAME = "name"
     private val PHOTO = "photo"
+    private val PERSONAL_ID = "personal_id"
+
+
+
+    private val DRIVER_LICENSE = "driver_license"
+    private val HEALTH = "health"
 
 
     private val sharedPreferences: SharedPreferences =
@@ -77,6 +83,46 @@ class PreferenceManager(context: Context) {
 
         mEditor.putString(DEVICE_TOKEN, userToken)
         mEditor.apply()
+    }
+
+
+
+
+
+    fun saveDriveLicense(documentType:String?) {
+
+        mEditor.putString(DRIVER_LICENSE, documentType)
+        mEditor.apply()
+    }
+
+
+    fun getDriveLicense():String{
+        return sharedPreferences.getString(DRIVER_LICENSE, "")!!
+    }
+
+
+    fun saveHealthReport(documentType:String?) {
+
+        mEditor.putString(HEALTH, documentType)
+        mEditor.apply()
+    }
+
+
+    fun getHealthReport():String{
+        return sharedPreferences.getString(HEALTH, "")!!
+    }
+
+
+
+    fun savePersonalID(documentType:String?) {
+
+        mEditor.putString(PERSONAL_ID, documentType)
+        mEditor.apply()
+    }
+
+
+    fun getPersonalID():String{
+        return sharedPreferences.getString(PERSONAL_ID, "")!!
     }
 
 

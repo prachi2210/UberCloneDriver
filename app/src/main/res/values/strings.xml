@@ -124,5 +124,15 @@
     <string name="reached_the_pick_up_point">Reached the Pick up point</string>
     <string name="checked_text">Swipe to deactivate</string>
     <string name="unchecked_text">Swipe to activate</string>
+    <string name="select">Select</string>
+    <string name="license_empty_error">License Number cannot be empty</string>
+    <string name="select_gear_validation">Please select car gear</string>
+    <string name="front_side_image_validation">Please Add Front Side Image</string>
+    <string name="back_side_image_validation">Please Add Back Side Image</string>
+    <string name="user_add_pic_validation">Please add your pic</string>
+    <string name="id_proof">Please select id proof</string>
+    <string name="id_number_empty_error">Please enter your id number</string>
+    <string name="dob_validation">Please enter your date of birth</string>
+    <string name="health_report_image_validation">Please upload the health report image</string>
 
 </resources>

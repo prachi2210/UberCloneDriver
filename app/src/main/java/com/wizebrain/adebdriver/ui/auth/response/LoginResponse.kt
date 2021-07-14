@@ -27,5 +27,9 @@ data class UserInfo(
     val uniqueNumber: String?,
     val updated_at: String?,
     val userRef: String?,
-    val validationCode: String?
+    val validationCode: String?,
+    val drivingLicense: String?,
+    val personalId: String?,
+    val healthReport: String?,
+
 )

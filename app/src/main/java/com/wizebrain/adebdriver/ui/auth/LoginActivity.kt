@@ -12,7 +12,9 @@ import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.databinding.ActivityLoginBinding
+import com.wizebrain.adebdriver.ui.auth.document_verification.DocumentActivity
 import com.wizebrain.adebdriver.ui.auth.forgotpassword.ForgotPasswordActivity
+import com.wizebrain.adebdriver.ui.map.DriverMapActivityScreen
 import com.wizebrain.adebdriver.utils.ActivityStarter
 import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
@@ -20,6 +22,7 @@ import com.wizebrain.adebdriver.utils.Status
 class LoginActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: AuthViewModel
+
     companion object {
 
         fun getStartIntent(context: Context): Intent {
@@ -92,9 +95,28 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                         userPreferences.saveName(user.body()?.UserInfo?.name)
                                         userPreferences.savePhoto(user.body()?.UserInfo?.profilePic)
                                         userPreferences.savePhoneNumber(user.body()?.UserInfo?.phoneNumber)
-                                        /*     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
-                                                 .finishAffinity()
-                                                 .startFrom(this)*/
+                                        userPreferences.saveHealthReport(user.body()?.UserInfo?.healthReport)
+                                        userPreferences.savePersonalID(user.body()?.UserInfo?.personalId)
+                                        userPreferences.saveDriveLicense(user.body()?.UserInfo?.drivingLicense)
+
+                                        if (user.body()?.UserInfo?.healthReport.equals("") ||
+                                            user.body()?.UserInfo?.personalId.equals("")
+                                            || user.body()?.UserInfo?.drivingLicense.equals("")
+                                        ) {
+                                            ActivityStarter.of(DocumentActivity.getStartIntent(this))
+                                                .finishAffinity()
+                                                .startFrom(this)
+
+                                        } else {
+                                            ActivityStarter.of(
+                                                DriverMapActivityScreen.getStartIntent(
+                                                    this
+                                                )
+                                            )
+                                                .finishAffinity()
+                                                .startFrom(this)
+                                        }
+
 
                                     } else {
                                         setError(user.body()?.msg.toString())

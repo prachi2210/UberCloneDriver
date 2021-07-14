@@ -16,8 +16,11 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.directions.route.*
 import com.example.adebuser.base.BaseActivity
+import com.example.adebuser.data.api.RetrofitBuilder
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
@@ -25,15 +28,21 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.wizebrain.adebdriver.R
+import com.wizebrain.adebdriver.base.ViewModelProviderFactory
+import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.wizebrain.adebdriver.databinding.ActivityDriverMapScreenBinding
 import com.wizebrain.adebdriver.extensions.hide
 import com.wizebrain.adebdriver.extensions.show
+import com.wizebrain.adebdriver.ui.map.ride.StartRideFragment
 import com.wizebrain.adebdriver.ui.map.ride.UserRideDetailsFragment
 import com.wizebrain.adebdriver.ui.map.ride.listener.UserRideAcceptRejectListener
+import com.wizebrain.adebdriver.utils.Status
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReadyCallback,
-    RoutingListener , UserRideAcceptRejectListener, GoogleMap.OnMapClickListener {
+    RoutingListener, UserRideAcceptRejectListener, GoogleMap.OnMapClickListener {
     private val TAG: String = DriverMapActivityScreen::class.java.simpleName
     private lateinit var binding: ActivityDriverMapScreenBinding
     private lateinit var mLocation: Location
@@ -41,19 +50,19 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
     private var mMap: GoogleMap? = null
     private val LOCATION_REQUEST_CODE = 23
     var locationPermission = false
+    private lateinit var viewModel: MapViewModel
     private var googleMap: GoogleMap? = null
     private val LOCATION_PERMISSION_REQUEST_CODE = 999
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var mLocationManager: LocationManager? = null
     private var mLocationRequest: LocationRequest? = null
-
     private var startPoint: LatLng? = null
     private var endPoint: LatLng? = null
     private var polylines: ArrayList<Polyline>? = null
-
-
     private val userRideRequestFragment by lazy { UserRideRequestFragment(this) }
     private val userRideDetailsFragment by lazy { UserRideDetailsFragment() }
+
+    private val startRideDetailsFragment by lazy { StartRideFragment() }
 
     companion object {
         fun getStartIntent(context: Context): Intent {
@@ -74,9 +83,12 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
             e.printStackTrace()
         }
         binding.map.getMapAsync(this)
-        openFragment(userRideRequestFragment,R.id.frame_container_request)
+        openFragment(userRideRequestFragment, R.id.frame_container_request)
         setUpLocationListener()
         getLocation()
+        setupViewModel()
+
+
 
 
         binding.swipeButton.onSwipedListener = {
@@ -85,15 +97,25 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
         binding.swipeButton.onSwipedOnListener = {
             Log.d(TAG, "onSwipedOn")
-            binding.frameOnline.show()
+            getMyBookings()
+            binding.frameContainerRequest.show()
 
         }
 
         binding.swipeButton.onSwipedOffListener = {
             Log.d(TAG, "onSwipedOff")
-            binding.frameOnline.hide()
+            binding.frameContainerRequest.hide()
+            binding.frameRideStart.hide()
         }
 
+    }
+
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProviderFactory(ApiHelper(RetrofitBuilder.apiService))
+        ).get(MapViewModel::class.java)
     }
 
 
@@ -147,6 +169,92 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
             }
         }
     }
+
+
+    private fun getMyBookings() {
+        viewModel.getBookingByDriver(
+            userPreferences.getUserREf().trim()
+
+        ).observe(this, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        dismissDialog()
+                        resource.data?.let { user ->
+                            if (user.body()?.status.equals("success")) {
+
+
+                                //name
+                                //rideid
+                                //photoUrl
+                                //price
+
+
+
+
+                            } else {
+                                setError(user.body()?.msg.toString())
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        dismissDialog()
+                        setError(it.message.toString())
+
+                    }
+                    Status.LOADING -> {
+                        showDialog()
+                    }
+                }
+            }
+        })
+
+    }
+
+
+    override fun onAcceptRejectClose(type: Int) {
+        /*  binding.frameContainerRequest.hide()
+          binding.frameRideStart.show()
+          openFragment(userRideDetailsFragment, R.id.frame_ride_start)*/
+    }
+
+
+    private fun acceptReject() {
+        viewModel.acceptRideByDriver(
+            userPreferences.getUserREf().trim(),
+            "rideId",
+            "type"
+
+        ).observe(this, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        dismissDialog()
+                        resource.data?.let { user ->
+                            if (user.body()?.status.equals("success")) {
+                                binding.frameContainerRequest.hide()
+                                binding.frameRideStart.show()
+                                openFragment(userRideDetailsFragment, R.id.frame_ride_start)
+
+                            } else {
+                                setError(user.body()?.msg.toString())
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        dismissDialog()
+                        setError(it.message.toString())
+
+                    }
+                    Status.LOADING -> {
+                        showDialog()
+                    }
+                }
+            }
+        })
+
+    }
+
 
     override fun onMapReady(p0: GoogleMap) {
         Log.e(TAG, "onMapReady $p0")
@@ -243,20 +351,11 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
     }
 
-    private fun openFragment(fragment: Fragment,id:Int) = supportFragmentManager.beginTransaction().apply {
-        replace(id, fragment)
-        commit()
-    }
-
-    override fun onAcceptRejectClose(type: Int, position: Int) {
-        Log.e(TAG,"acceptReject $type position=$position")
-        binding.frameContainerRequest.hide()
-        binding.frameRideStart.show()
-        openFragment(userRideDetailsFragment,R.id.frame_ride_start)
-    }
-
-
-
+    private fun openFragment(fragment: Fragment, id: Int) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(id, fragment)
+            commit()
+        }
 
 
     private fun setUpLocationListener() {
@@ -264,7 +363,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(this)
         mLocationManager =
-         getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         locationCallback = object : LocationCallback() {
             @SuppressLint("MissingPermission")
@@ -274,7 +373,8 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
                     mLocation = location
 
                     googleMap!!.isMyLocationEnabled = true
-                    val geocoder: Geocoder = Geocoder(this@DriverMapActivityScreen, Locale.getDefault())
+                    val geocoder: Geocoder =
+                        Geocoder(this@DriverMapActivityScreen, Locale.getDefault())
 
                     val addresses: List<Address> = geocoder.getFromLocation(
                         location.latitude,
@@ -287,7 +387,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
 
                     //   binding.tvCurrentAddress.text = addresses[0].featureName
-             /*       binding.tvCurrentAddress.text = address*/
+                    /*       binding.tvCurrentAddress.text = address*/
                     val ltlng = LatLng(location.latitude, location.longitude)
                     val cameraUpdate = CameraUpdateFactory.newLatLngZoom(
                         ltlng, 16f

@@ -201,8 +201,8 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         userRef: String,
         dlNo: String,
         carGearType: String,
-        frontSideUrl: File?,
-        backSideUrl: File?
+        frontSideUrl1: File?,
+        frontSideUrl2: File?
     ) = liveData(Dispatchers.IO)
     {
 
@@ -213,14 +213,14 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         var userFrontSidePhoto: MultipartBody.Part? = null
         var userBackSidePhoto: MultipartBody.Part? = null
 
-        if (frontSideUrl != null) {
-            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), frontSideUrl)
-            userFrontSidePhoto = MultipartBody.Part.createFormData("frontSideUrl", frontSideUrl.name, requestFile)
+        if (frontSideUrl1 != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), frontSideUrl1)
+            userFrontSidePhoto = MultipartBody.Part.createFormData("frontSideUrl1", frontSideUrl1.name, requestFile)
         }
 
-        if (backSideUrl != null) {
-            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), backSideUrl)
-            userFrontSidePhoto = MultipartBody.Part.createFormData("backSideUrl", backSideUrl.name, requestFile)
+        if (frontSideUrl2 != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), frontSideUrl2)
+            userBackSidePhoto = MultipartBody.Part.createFormData("frontSideUrl2", frontSideUrl2.name, requestFile)
         }
 
         emit(Resource.loading(data = null))
@@ -242,21 +242,20 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         userRef: String,
         bloodGroup: String,
         surgery: String,
-        dob: String,
         healthReportFile: File?
     ) = liveData(Dispatchers.IO)
     {
         val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
         val bloodGroup = bloodGroup.toRequestBody("multipart/form-data".toMediaType())
         val surgery = surgery.toRequestBody("multipart/form-data".toMediaType())
-        val dob = dob.toRequestBody("multipart/form-data".toMediaType())
+
 
         var driverHealthReportFile: MultipartBody.Part? = null
 
 
         if (healthReportFile != null) {
             val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), healthReportFile)
-            driverHealthReportFile = MultipartBody.Part.createFormData("backSideUrl", healthReportFile.name, requestFile)
+            driverHealthReportFile = MultipartBody.Part.createFormData("healthReportFile", healthReportFile.name, requestFile)
         }
 
 
@@ -265,7 +264,7 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
             emit(
                 Resource.success(
                     data = appRepository.uploadHealthReport(
-                        userRef,bloodGroup,surgery,dob,driverHealthReportFile
+                        userRef,bloodGroup,surgery,driverHealthReportFile
                     )
                 )
             )
@@ -280,9 +279,9 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         proofType: String,
         proofNo: String,
         dob: String,
-        yourPic: File?,
-        frontSideUrl: File?,
-        backSideUrl: File?
+        image1: File?,
+        image2: File?,
+        image3: File?
     ) = liveData(Dispatchers.IO)
     {
         val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
@@ -293,19 +292,19 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         var driverFrontSide: MultipartBody.Part? = null
         var driverBackSide: MultipartBody.Part? = null
 
-        if (yourPic != null) {
-            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), yourPic)
-            driverPic = MultipartBody.Part.createFormData("backSideUrl", yourPic.name, requestFile)
+        if (image1 != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), image1)
+            driverPic = MultipartBody.Part.createFormData("image1", image1.name, requestFile)
         }
 
-        if (frontSideUrl != null) {
-            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), frontSideUrl)
-            driverFrontSide = MultipartBody.Part.createFormData("backSideUrl", frontSideUrl.name, requestFile)
+        if (image2 != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), image2)
+            driverFrontSide = MultipartBody.Part.createFormData("image2", image2.name, requestFile)
         }
 
-        if (backSideUrl != null) {
-            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), backSideUrl)
-            driverBackSide = MultipartBody.Part.createFormData("backSideUrl", backSideUrl.name, requestFile)
+        if (image3 != null) {
+            val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), image3)
+            driverBackSide = MultipartBody.Part.createFormData("image3", image3.name, requestFile)
         }
 
 

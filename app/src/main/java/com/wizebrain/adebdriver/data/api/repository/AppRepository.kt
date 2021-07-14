@@ -71,6 +71,18 @@ class AppRepository(var apiHelper: ApiHelper) {
     ) = apiHelper.resendOtp(phoneNumber)
 
 
+    suspend fun getBookingByDriver(
+        driverRef: RequestBody?,
+    )= apiHelper.getBookingByDriver(driverRef)
+
+
+
+    suspend fun acceptRideByDriver(
+        driverRef: RequestBody?,
+        rideId: RequestBody?,
+        type: RequestBody?,
+    )= apiHelper.acceptRideByDriver(driverRef,rideId,type)
+
     suspend fun createNewPassword(
         phoneNumber: RequestBody?,
         password: RequestBody?
@@ -81,9 +93,9 @@ class AppRepository(var apiHelper: ApiHelper) {
         userRef: RequestBody?,
         dlNo: RequestBody?,
         carGearType: RequestBody?,
-        frontSideUrl: MultipartBody.Part?,
-        backSideUrl: MultipartBody.Part?
-    ) = apiHelper.uploadDrivingLicense(userRef, dlNo, carGearType, frontSideUrl, backSideUrl)
+        frontSideUrl1: MultipartBody.Part?,
+        frontSideUrl2: MultipartBody.Part?
+    ) = apiHelper.uploadDrivingLicense(userRef, dlNo, carGearType, frontSideUrl1, frontSideUrl2)
 
 
     suspend fun uploadPersonalId(
@@ -91,17 +103,17 @@ class AppRepository(var apiHelper: ApiHelper) {
         proofType: RequestBody?,
         proofNo: RequestBody?,
         dob: RequestBody?,
-        yourPic: MultipartBody.Part?,
-        frontSideUrl: MultipartBody.Part?,
-        backSideUrl: MultipartBody.Part?
+        image1: MultipartBody.Part?,
+        image2: MultipartBody.Part?,
+        image3: MultipartBody.Part?
     ) = apiHelper.uploadPersonalId(
         userRef,
         proofType,
         proofNo,
         dob,
-        yourPic,
-        frontSideUrl,
-        backSideUrl
+        image1,
+        image2,
+        image3
     )
 
 
@@ -109,9 +121,9 @@ class AppRepository(var apiHelper: ApiHelper) {
         userRef: RequestBody?,
         bloodGroup: RequestBody?,
         surgery: RequestBody?,
-        dob: RequestBody?,
+
         healthReportFile: MultipartBody.Part?
-    ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, dob, healthReportFile)
+    ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, healthReportFile)
 
 
     /*

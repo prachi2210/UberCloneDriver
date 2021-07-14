@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--    tools:context=".activity.HealthReportActivity"-->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,6 +54,7 @@
             android:textSize="@dimen/_12ssp" />
 
         <Spinner
+            android:id="@+id/blood_gp_spinner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
@@ -76,6 +77,7 @@
             android:textSize="@dimen/_12ssp" />
 
         <Spinner
+            android:id="@+id/surgery_spinner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
@@ -97,54 +99,44 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp" />
 
-        <RelativeLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_medical_image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_110sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_8sdp">
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/dashed_line_box"
+            android:orientation="horizontal"
+            android:onClick="onClick"
+            android:padding="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/upload_medical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_20sdp"
+                android:layout_weight="1"
+                android:padding="@dimen/_4sdp"
+                android:text="Upload Medical"
+                android:textColor="@color/black" />
 
             <ImageView
-                android:layout_width="@dimen/_30sdp"
+                android:id="@+id/medical_image"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
                 android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_logo" />
-
-            <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_trash" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_110sdp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="@drawable/dashed_line_box"
-            android:gravity="center"
-            android:padding="@dimen/_4sdp"
-            android:text="Image"
-            android:textColor="@color/black" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_110sdp"
-            android:layout_gravity="center"
-            android:background="@drawable/dashed_line_box"
-            android:gravity="center"
-            android:padding="@dimen/_4sdp"
-            android:text="Image"
-            android:textColor="@color/black"
-            android:visibility="gone" />
+                android:src="@drawable/placeholder_image"
+                android:text="Image"
+                android:textColor="@color/black" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
-        android:id="@+id/continue_btn"
+        android:id="@+id/upload_btn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_35sdp"
         android:layout_alignParentBottom="true"
@@ -156,7 +148,50 @@
         android:gravity="center"
         android:paddingVertical="3dp"
         android:text="Done"
+        android:onClick="onClick"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold" />
 </RelativeLayout>
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_marginTop="@dimen/_8sdp"-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_marginHorizontal="@dimen/_20sdp"-->
+    <!--android:layout_height="@dimen/_30sdp">-->
+    <!--<ImageView-->
+    <!--    android:layout_width="@dimen/_30sdp"-->
+    <!--    android:padding="@dimen/_4sdp"-->
+    <!--    android:src="@drawable/ic_upload"-->
+    <!--    android:layout_gravity="center"-->
+    <!--    android:layout_height="match_parent"/>-->
+    <!--<ImageView-->
+    <!--    android:layout_width="@dimen/_30sdp"-->
+    <!--    android:padding="@dimen/_4sdp"-->
+    <!--    android:layout_alignParentEnd="true"-->
+    <!--    android:src="@drawable/ic_trash"-->
+    <!--    android:layout_gravity="center"-->
+    <!--    android:layout_centerVertical="true"-->
+    <!--    android:layout_height="@dimen/_25sdp"/>-->
+    <!--</RelativeLayout>-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:padding="@dimen/_4sdp"-->
+    <!--android:text="Image"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@drawable/dashed_line_box"-->
+    <!--android:layout_marginHorizontal="@dimen/_20sdp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_height="@dimen/_110sdp"/>-->
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:padding="@dimen/_4sdp"-->
+    <!--android:text="Image"-->
+    <!--android:visibility="gone"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@drawable/dashed_line_box"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_height="@dimen/_110sdp"/>-->

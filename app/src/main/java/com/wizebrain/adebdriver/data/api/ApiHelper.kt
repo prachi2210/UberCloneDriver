@@ -76,6 +76,22 @@ class ApiHelper(private val apiService: ApiService) {
     ) = apiService.resendOtp(phoneNumber)
 
 
+
+
+    suspend fun getBookingByDriver(
+        driverRef: RequestBody?,
+    )= apiService.getBookingByDriver(driverRef)
+
+
+
+    suspend fun acceptRideByDriver(
+       driverRef: RequestBody?,
+       rideId: RequestBody?,
+       type: RequestBody?,
+    )= apiService.acceptRideByDriver(driverRef,rideId,type)
+
+
+
     suspend fun createNewPassword(
         phoneNumber: RequestBody?,
         password: RequestBody?
@@ -86,9 +102,9 @@ class ApiHelper(private val apiService: ApiService) {
         userRef: RequestBody?,
         dlNo: RequestBody?,
         carGearType: RequestBody?,
-        frontSideUrl: MultipartBody.Part?,
-        backSideUrl: MultipartBody.Part?
-    ) = apiService.uploadDrivingLicense(userRef, dlNo, carGearType, frontSideUrl, backSideUrl)
+        frontSideUrl1: MultipartBody.Part?,
+        frontSideUrl2: MultipartBody.Part?
+    ) = apiService.uploadDrivingLicense(userRef, dlNo, carGearType, frontSideUrl1, frontSideUrl2)
 
 
     suspend fun uploadPersonalId(
@@ -96,17 +112,17 @@ class ApiHelper(private val apiService: ApiService) {
         proofType: RequestBody?,
         proofNo: RequestBody?,
         dob: RequestBody?,
-        yourPic: MultipartBody.Part?,
-        frontSideUrl: MultipartBody.Part?,
-        backSideUrl: MultipartBody.Part?
+        image1: MultipartBody.Part?,
+        image2: MultipartBody.Part?,
+        image3: MultipartBody.Part?
     ) = apiService.uploadPersonalId(
         userRef,
         proofType,
         proofNo,
         dob,
-        yourPic,
-        frontSideUrl,
-        backSideUrl
+        image1,
+        image2,
+        image3
     )
 
 
@@ -114,9 +130,8 @@ class ApiHelper(private val apiService: ApiService) {
         userRef: RequestBody?,
         bloodGroup: RequestBody?,
         surgery: RequestBody?,
-        dob: RequestBody?,
         healthReportFile: MultipartBody.Part?
-    ) = apiService.uploadHealthReport(userRef, bloodGroup, surgery, dob, healthReportFile)
+    ) = apiService.uploadHealthReport(userRef, bloodGroup, surgery, healthReportFile)
 
 
     /*

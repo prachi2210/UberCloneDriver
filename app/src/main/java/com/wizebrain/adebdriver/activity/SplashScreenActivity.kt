@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.example.adebuser.base.BaseActivity
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.databinding.ActivityLoginBinding
 import com.wizebrain.adebdriver.databinding.ActivitySplashBinding
 import com.wizebrain.adebdriver.ui.auth.LoginActivity
 import com.wizebrain.adebdriver.ui.auth.SignUpActivity
+import com.wizebrain.adebdriver.ui.auth.document_verification.DocumentActivity
 import com.wizebrain.adebdriver.ui.auth.document_verification.DrivingLicenseActivity
+import com.wizebrain.adebdriver.ui.auth.document_verification.HealthReportActivity
 import com.wizebrain.adebdriver.ui.auth.document_verification.PersonalIdActivity
 import com.wizebrain.adebdriver.ui.map.DriverMapActivityScreen
 import com.wizebrain.adebdriver.utils.ActivityStarter
@@ -27,6 +30,8 @@ class SplashScreenActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Log.e(TAG,"userRef ${userPreferences.getUserREf()}")
         moveToDestination()
     }
 
@@ -35,7 +40,7 @@ class SplashScreenActivity : BaseActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             when {
                 userPreferences.getUserId().equals("") -> {
-                    ActivityStarter.of(PersonalIdActivity.getStartIntent(this))
+                    ActivityStarter.of(LoginActivity.getStartIntent(this))
                         .finishAffinity()
                         .startFrom(this)
                 }
@@ -43,7 +48,7 @@ class SplashScreenActivity : BaseActivity() {
                 else -> {
 
                     //home screem would come intead of login
-                    ActivityStarter.of(PersonalIdActivity.getStartIntent(this))
+                    ActivityStarter.of(DocumentActivity.getStartIntent(this))
                         .finishAffinity()
                         .startFrom(this)
 

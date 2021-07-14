@@ -38,9 +38,13 @@ class StartRideFragment : BaseFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvRideStatus.setOnClickListener(this)
+        if (type.equals("start")) {
+            binding.tvRideStatus.text = "Start trip"
+        } else {
+            binding.tvRideStatus.text = "End trip"
+        }
 
-    //Ride start
-
+        //Ride start
 
 
     }
