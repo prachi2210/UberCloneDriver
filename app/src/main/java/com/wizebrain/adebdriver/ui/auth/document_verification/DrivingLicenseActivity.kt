@@ -99,6 +99,7 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun uploadDrivingLicense() {
+<<<<<<< HEAD
 
         when {
             checkEmpty(binding.etLicenseNumber) -> {
@@ -153,6 +154,24 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
                             }
                             Status.LOADING -> {
                                 showDialog()
+=======
+        viewModel.uploadDrivingLicense(
+            userPreferences.getUserDetails()?.userRef.toString(), "", "", null, null
+        ).observe(this, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        dismissDialog()
+                        resource.data?.let { user ->
+                            if (user.body()?.status.equals("success")) {
+
+                                /*     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
+                                         .finishAffinity()
+                                         .startFrom(this)*/
+
+                            } else {
+                                setError(user.body()?.msg.toString())
+>>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
                             }
                         }
                     }

@@ -19,6 +19,7 @@
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:id="@+id/title_text"
             android:gravity="center"
             android:textColor="@color/appColor"
             android:textSize="@dimen/_12ssp"
@@ -29,6 +30,7 @@
         <ImageView
             android:layout_width="40dp"
             android:visibility="invisible"
+            android:id="@+id/endView"
             android:layout_gravity="center_vertical"
             android:layout_height="40dp"/>
 

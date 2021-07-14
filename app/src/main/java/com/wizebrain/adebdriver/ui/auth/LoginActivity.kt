@@ -35,6 +35,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         setupViewModel()
     }
 
@@ -90,6 +92,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                 dismissDialog()
                                 resource.data?.let { user ->
                                     if (user.body()?.status.equals("success")) {
+<<<<<<< HEAD
                                         userPreferences.saveUserID(user.body()?.UserInfo?.id)
                                         userPreferences.saveUserRef(user.body()?.UserInfo?.userRef)
                                         userPreferences.saveName(user.body()?.UserInfo?.name)
@@ -117,6 +120,17 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                                 .startFrom(this)
                                         }
 
+=======
+                                        userPreferences.saveUserDetails(user.body()?.UserInfo)
+//                                        userPreferences.saveUserID(user.body()?.UserInfo?.id)
+//                                        userPreferences.saveUserRef(user.body()?.UserInfo?.userRef)
+//                                        userPreferences.saveName(user.body()?.UserInfo?.name)
+//                                        userPreferences.savePhoto(user.body()?.UserInfo?.profilePic)
+//                                        userPreferences.savePhoneNumber(user.body()?.UserInfo?.phoneNumber)
+                                        /*     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
+                                                 .finishAffinity()
+                                                 .startFrom(this)*/
+>>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
 
                                     } else {
                                         setError(user.body()?.msg.toString())

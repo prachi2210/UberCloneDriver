@@ -81,6 +81,7 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/_20sdp"
+<<<<<<< HEAD
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_driving_license"
@@ -192,6 +193,22 @@
         </LinearLayout>
 
 
+=======
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Driving License"
+            android:layout_height="@dimen/_30sdp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:drawableRight="@drawable/ic_move"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center_vertical"
+            android:text="Personal Id Card"
+            android:layout_height="@dimen/_30sdp"/>
+>>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
         <TextView
             android:layout_width="match_parent"
             android:src="@drawable/ic_baseline_arrow_back_24"

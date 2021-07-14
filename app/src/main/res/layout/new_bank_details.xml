@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <include android:id="@+id/news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/header_layout"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_height="@dimen/_40sdp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/_12ssp"
+                    android:text="Fill Details"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:textColor="@color/black"
+                    android:gravity="end"
+                    android:layout_gravity="center"
+                android:textSize="@dimen/_15ssp"
+                android:text="$80"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="Account Holder's Name"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/grey_color"
+                android:textSize="@dimen/_12ssp"
+                android:visibility="gone"
+                android:text="Exactly as it appears in your bank statement"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/grey_box"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="Enter Name"
+                android:layout_height="@dimen/_30sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="Bank Name"
+                android:layout_height="wrap_content"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/appColor"
+                android:background="@drawable/grey_box"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:textSize="@dimen/_12ssp"
+                android:layout_height="@dimen/_30sdp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="IBAN"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/grey_box"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="Code"
+                android:layout_height="@dimen/_30sdp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="Bank Account Number"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/grey_box"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="Account Number"
+                android:layout_height="@dimen/_30sdp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="Confirm Bank Account Number"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:background="@drawable/grey_box"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_5sdp"
+                android:textSize="@dimen/_12ssp"
+                android:text="Account Number"
+                android:layout_height="@dimen/_30sdp"/>
+
+        </LinearLayout>
+    </ScrollView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginVertical="@dimen/_20sdp"
+        android:text="Transfer Amount"
+        android:fontFamily="@font/poppins_regular"
+        android:id="@+id/login_btn"
+        android:textSize="@dimen/_12ssp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/round_corner_button"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_height="@dimen/_35sdp"/>
+</RelativeLayout>

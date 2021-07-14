@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <include android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/header_layout"/>
+    <ImageView
+        android:layout_width="@dimen/_60sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/image_driver"
+        android:layout_below="@+id/header"
+       android:src="@drawable/ic_dashboard_black_24dp"
+        android:background="@drawable/round_corner_button"
+        android:layout_height="@dimen/_60sdp"/>
     <TextView
         android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_below="@+id/header"
+        android:layout_toRightOf="@+id/image_driver"
+        android:id="@+id/driver_name"
+        android:textSize="@dimen/_12ssp"
+        android:text="User Name"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginLeft="@dimen/_15sdp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@+id/image_driver"
+        android:id="@+id/text_ntfcn"
+        android:textSize="@dimen/_12ssp"
+        android:layout_below="@+id/driver_name"
+        android:text="+91YOURNUMBER"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_15sdp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/image_driver"
+        android:id="@+id/profile_recycler"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_height="wrap_content"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/container_layout"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_below="@+id/profile_recycler"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

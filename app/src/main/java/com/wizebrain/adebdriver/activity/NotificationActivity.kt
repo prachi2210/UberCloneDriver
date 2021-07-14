@@ -1,7 +1,8 @@
-package com.wizebrain.adebdriver
+package com.wizebrain.adebdriver.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.wizebrain.adebdriver.R
 
 class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
