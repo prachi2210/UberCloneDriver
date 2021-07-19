@@ -7,17 +7,20 @@
     android:background="@drawable/drawable_upper_white_curve"
     android:elevation="@dimen/_5sdp"
     android:minHeight="250dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/_10sdp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_close_fragment"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:visibility="gone"
         android:background="@drawable/drawable_upper_white_curve"
         android:drawableStart="@drawable/ic_arrow_down"
         android:drawablePadding="@dimen/_20sdp"
         android:drawableTint="@color/blue"
         android:elevation="5dp"
+
         android:fontFamily="@font/poppins_medium"
         android:gravity="center_vertical"
         android:padding="15dp"
@@ -26,9 +29,11 @@
         android:textSize="16sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/_10sdp"
+
         android:paddingEnd="@dimen/_10sdp">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -37,7 +42,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:src="@drawable/profile"
+            android:src="@drawable/dummy_profile_two"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -113,9 +118,11 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_50sdp"
+
         android:layout_marginEnd="@dimen/_20sdp">
 
 
@@ -154,7 +161,7 @@
 
 
         <TextView
-            android:id="@+id/FromAddress"
+            android:id="@+id/tv_from_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dashLine"

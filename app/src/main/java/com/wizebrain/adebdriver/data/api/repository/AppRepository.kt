@@ -52,6 +52,24 @@ class AppRepository(var apiHelper: ApiHelper) {
 
         ) = apiHelper.logout(userRef)
 
+
+    suspend fun startTrip(
+        rideId: RequestBody?,
+        type: RequestBody?
+    ) = apiHelper.startTrip(rideId,type)
+
+
+
+    suspend fun addRating(
+        rideId: RequestBody?,
+        userRef: RequestBody?,
+        driverRef: RequestBody?,
+        ratting: RequestBody?,
+        description: RequestBody?
+    )= apiHelper.addRating(rideId,userRef,driverRef,ratting,description)
+
+
+
     suspend fun otpVerify(
         phoneNumber: RequestBody,
         otp: RequestBody
@@ -93,9 +111,10 @@ class AppRepository(var apiHelper: ApiHelper) {
         userRef: RequestBody?,
         dlNo: RequestBody?,
         carGearType: RequestBody?,
+        carType:RequestBody?,
         frontSideUrl1: MultipartBody.Part?,
         frontSideUrl2: MultipartBody.Part?
-    ) = apiHelper.uploadDrivingLicense(userRef, dlNo, carGearType, frontSideUrl1, frontSideUrl2)
+    ) = apiHelper.uploadDrivingLicense(userRef, dlNo, carGearType,carType, frontSideUrl1, frontSideUrl2)
 
 
     suspend fun uploadPersonalId(
@@ -121,10 +140,7 @@ class AppRepository(var apiHelper: ApiHelper) {
         userRef: RequestBody?,
         bloodGroup: RequestBody?,
         surgery: RequestBody?,
-<<<<<<< HEAD
 
-=======
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
         healthReportFile: MultipartBody.Part?
     ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, healthReportFile)
 

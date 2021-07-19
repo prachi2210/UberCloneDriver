@@ -1,15 +1,11 @@
 package com.wizebrain.adebdriver.ui.auth.document_verification
 
 import android.Manifest
-<<<<<<< HEAD
 import android.content.Context
-=======
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -22,19 +18,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.base.BaseActivity
+import com.wizebrain.adebdriver.base.BaseActivity
 import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.BuildConfig
 import com.wizebrain.adebdriver.R
-import com.wizebrain.adebdriver.adapter.SpinnerAdapter
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.data.api.ApiHelper
-import com.wizebrain.adebdriver.databinding.ActivityDrivingLicenseBinding
 import com.wizebrain.adebdriver.databinding.ActivityHealthReportBinding
 import com.wizebrain.adebdriver.extensions.loadImage
 import com.wizebrain.adebdriver.ui.auth.AuthViewModel
 import com.wizebrain.adebdriver.ui.auth.adapter.CustomSpinnerAdapter
-import com.wizebrain.adebdriver.utils.ActivityStarter
+import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
 import java.io.File
 import java.io.IOException
@@ -49,7 +43,6 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
     var mPhotoFile: File? = null
     val REQUEST_TAKE_PHOTO = 101
     val REQUEST_GALLERY_PHOTO = 201
-<<<<<<< HEAD
 
     private var bloodGroupList = arrayOf<String>()
 
@@ -61,8 +54,6 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
             return Intent(context, HealthReportActivity::class.java)
         }
     }
-=======
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +61,6 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
         setContentView(binding.root)
         setupViewModel()
 
-<<<<<<< HEAD
         bloodGroupList = resources.getStringArray(R.array.blood_group)
         val spinnerAdapter1 = CustomSpinnerAdapter(
             this,  // Use our custom adapter
@@ -92,33 +82,16 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
                 surgery = anySurgeryList[i]
-=======
-        val status1 =  resources.getStringArray(R.array.blood_group)
-        val spinnerAdapter1 = SpinnerAdapter(activity, status1)
-        val status =  resources.getStringArray(R.array.any_surgery)
-        val spinnerAdapter = SpinnerAdapter(activity, status)
-        binding.surgerySpinner.adapter=spinnerAdapter
-        binding.surgerySpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
-             surgery=status[i]
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
 
             }
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         })
-<<<<<<< HEAD
         binding.bloodGpSpinner.adapter = spinnerAdapter1
         binding.bloodGpSpinner.setOnItemSelectedListener(object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
                 bloodGroup = bloodGroupList[i]
-=======
-        binding.bloodGpSpinner.adapter=spinnerAdapter1
-        binding.bloodGpSpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View, i: Int, l: Long) {
-             bloodGroup=status1[i]
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
 
             }
 
@@ -251,11 +224,6 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
     private fun checkExternalPermission() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -282,11 +250,7 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
 
     private fun uploadHealthReport() {
         viewModel.uploadHealthReport(
-<<<<<<< HEAD
             userPreferences.getUserREf().toString(),
-=======
-            userPreferences.getUserDetails()?.userRef.toString(),
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
             bloodGroup, surgery, mPhotoFile
         ).observe(this, Observer {
             it?.let { resource ->
@@ -296,9 +260,16 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
                         resource.data?.let { user ->
                             if (user.body()?.status.equals("success")) {
                                 userPreferences.saveHealthReport("health")
-                                ActivityStarter.of(DocumentActivity.getStartIntent(this,"health"))
+                                val returnIntent = Intent()
+                                returnIntent.putExtra(Constants.TYPE, "health")
+                                setResult(RESULT_OK, returnIntent)
+                                finish()
+
+
+
+                       /*         ActivityStarter.of(DocumentActivity.getStartIntent(this,"health"))
                                     .finishCurrentActivity()
-                                    .startFrom(this)
+                                    .startFrom(this)*/
                             } else {
                                 setError(user.body()?.msg.toString())
                             }
@@ -319,7 +290,6 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-<<<<<<< HEAD
             binding.linearMedicalImage -> {
                 checkExternalPermission()
             }
@@ -331,17 +301,6 @@ class HealthReportActivity : BaseActivity(), View.OnClickListener {
                 else if (mPhotoFile == null)
                     showToast(this, getString(R.string.health_report_image_validation))
                 else uploadHealthReport()
-=======
-            binding.uploadMedical -> {
-                checkExternalPermission()
-            } binding.uploadBtn -> {
-            if (bloodGroup=="Select") {
-                Toast.makeText(this,"please select blood group", Toast.LENGTH_SHORT).show()
-            }else if (surgery=="Select") {
-                Toast.makeText(this,"please select surgery", Toast.LENGTH_SHORT).show()
-            }else uploadHealthReport()
-            }
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
         }
     }
 }

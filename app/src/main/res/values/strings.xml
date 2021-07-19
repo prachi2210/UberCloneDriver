@@ -75,7 +75,7 @@
     <string name="select_image_from_gallery">Select image from gallery</string>
     <string name="select_image_from_camera">Select image from camera</string>
     <string name="nice_experience">Nice Experience !</string>
-    <string name="rate_driver">Rate Driver</string>
+    <string name="rate_driver">Rate User</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="favourite_drivers">Favourite Drivers</string>
     <string name="your_favourite_drivers">Your Favourite Drivers</string>
@@ -134,5 +134,29 @@
     <string name="id_number_empty_error">Please enter your id number</string>
     <string name="dob_validation">Please enter your date of birth</string>
     <string name="health_report_image_validation">Please upload the health report image</string>
+    <string name="ride_notified_msg">,you will be notified soon once any ride comes</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="unique_identity_number">Unique Identification Number</string>
+    <string name="driving_experience">Driving Experience ( in years)</string>
+    <string name="feedback_validation">Please enter your feedback</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="required_for_this_app">Required for this App</string>
+    <string name="enable_now">Enable Now</string>
+    <string name="location_permission_not_granted">Location Permission not granted</string>
+    <string name="select_car_type">Select Car Type</string>
+    <string name="select_car_validation">Please select your car type</string>
+    <string name="enter_license_number">Enter License Number</string>
+    <string name="select_car_gear">Select Car Gear</string>
+    <string name="files">Files</string>
+    <string name="upload_front_image">Upload Front Image</string>
+    <string name="upload_back_image">Upload Back Image</string>
+    <string name="enter_id_number">Enter ID Number</string>
+    <string name="select_id_proof">Select ID Proof</string>
+    <string name="enter_id_proof_number">Enter ID Proof Number</string>
+    <string name="dob">DOB</string>
+    <string name="any_recommendation">Any Recommendation</string>
+    <string name="upload_your_picture">Upload Your Picture</string>
+    <string name="yyyy_mm_dd">YYYY-MM-DD</string>
+
 
 </resources>

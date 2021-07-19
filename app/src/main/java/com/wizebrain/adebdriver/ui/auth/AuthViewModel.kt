@@ -18,7 +18,9 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
     fun login(
         phoneNumber: String,
         password: String,
-        token: String
+        token: String,
+        latitude: String,
+        longitude: String,
     ) = liveData(Dispatchers.IO) {
 
         val userPhoneNumber = phoneNumber.toRequestBody("multipart/form-data".toMediaType())
@@ -26,8 +28,8 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         val fieldType = "phoneNumber".toRequestBody("multipart/form-data".toMediaType())
         val OSType = "Android".toRequestBody("multipart/form-data".toMediaType())
         val deviceToken = token.toRequestBody("multipart/form-data".toMediaType())
-        val latitude = "0.0".toRequestBody("multipart/form-data".toMediaType())
-        val longitude = "0.0".toRequestBody("multipart/form-data".toMediaType())
+        val latitude =latitude.toRequestBody("multipart/form-data".toMediaType())
+        val longitude =longitude.toRequestBody("multipart/form-data".toMediaType())
 
         emit(Resource.loading(data = null))
         try {
@@ -201,6 +203,7 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         userRef: String,
         dlNo: String,
         carGearType: String,
+        carType:String,
         frontSideUrl1: File?,
         frontSideUrl2: File?
     ) = liveData(Dispatchers.IO)
@@ -210,6 +213,8 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
         val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
         val dlNo = dlNo.toRequestBody("multipart/form-data".toMediaType())
         val carGearType = carGearType.toRequestBody("multipart/form-data".toMediaType())
+        val carType = carType.toRequestBody("multipart/form-data".toMediaType())
+
         var userFrontSidePhoto: MultipartBody.Part? = null
         var userBackSidePhoto: MultipartBody.Part? = null
 
@@ -228,7 +233,7 @@ class AuthViewModel(private val appRepository: AppRepository) : ViewModel() {
             emit(
                 Resource.success(
                     data = appRepository.uploadDrivingLicense(
-                        userRef,dlNo,carGearType,userFrontSidePhoto,userBackSidePhoto
+                        userRef,dlNo,carGearType,carType,userFrontSidePhoto,userBackSidePhoto
                     )
                 )
             )

@@ -1,5 +1,6 @@
 package com.wizebrain.adebdriver.ui.auth.document_verification
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,34 +12,34 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.base.BaseActivity
+import com.wizebrain.adebdriver.base.BaseActivity
 import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.BuildConfig
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.wizebrain.adebdriver.databinding.ActivityDrivingLicenseBinding
+import com.wizebrain.adebdriver.extensions.loadImage
 import com.wizebrain.adebdriver.ui.auth.AuthViewModel
+import com.wizebrain.adebdriver.ui.auth.adapter.CustomSpinnerAdapter
+import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import android.Manifest
-import android.util.Log
-import androidx.core.app.ActivityCompat
-import com.wizebrain.adebdriver.extensions.loadImage
-import com.wizebrain.adebdriver.ui.auth.adapter.CustomSpinnerAdapter
-import com.wizebrain.adebdriver.utils.ActivityStarter
+
 
 class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityDrivingLicenseBinding
     private lateinit var viewModel: AuthViewModel
     private var gearTypeList = arrayOf<String>()
+    private var carTypeList = arrayOf<String>()
     var mFrontSideFile: File? = null
     var mBackSideFile: File? = null
     val REQUEST_TAKE_PHOTO = 101
@@ -57,7 +58,8 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityDrivingLicenseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewModel()
-        gearTypeList = resources.getStringArray(R.array.car_type)
+        gearTypeList = resources.getStringArray(R.array.car_gear_type)
+        carTypeList=resources.getStringArray(R.array.car_type)
 
 
         val spinnerGearAdapter = CustomSpinnerAdapter(
@@ -67,6 +69,36 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
         spinnerGearAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
         binding.spinnerGear.adapter = spinnerGearAdapter
         binding.spinnerGear.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItemText = parent.getItemAtPosition(position) as String
+                    // If user change the default selection
+                    // First item is disable and it is used for hint
+                    if (position > 0) {
+                        // Notify the selected item text
+
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
+
+
+
+
+        val spinnerCarType = CustomSpinnerAdapter(
+            this,  // Use our custom adapter
+            R.layout.spinner_item, carTypeList
+        )
+        spinnerCarType.setDropDownViewResource(android.R.layout.simple_list_item_1)
+        binding.spinnerCar.adapter = spinnerCarType
+        binding.spinnerCar.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>,
@@ -99,7 +131,6 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun uploadDrivingLicense() {
-<<<<<<< HEAD
 
         when {
             checkEmpty(binding.etLicenseNumber) -> {
@@ -111,6 +142,10 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
                 .equals(getString(R.string.select)) -> {
                 setError(getString(R.string.select_gear_validation))
             }
+            binding.spinnerCar.selectedItem.toString()
+                .equals(getString(R.string.select)) -> {
+                setError(getString(R.string.select_car_validation))
+            }
 
 
             mFrontSideFile == null -> {
@@ -121,11 +156,14 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
                 setError(getString(R.string.back_side_image_validation))
             }
 
+
+            //car gear type
             else -> {
                 viewModel.uploadDrivingLicense(
                     userPreferences.getUserREf(),
                     binding.etLicenseNumber.text.toString().trim(),
                     binding.spinnerGear.selectedItem.toString().trim(),
+                    binding.spinnerCar.selectedItem.toString().trim(),
                     mFrontSideFile,
                     mBackSideFile
                 ).observe(this, Observer {
@@ -135,12 +173,12 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
                                 dismissDialog()
                                 resource.data?.let { user ->
                                     if (user.body()?.status.equals("success")) {
-
                                         userPreferences.saveDriveLicense("DriverLicense")
+                                        val returnIntent = Intent()
+                                        returnIntent.putExtra(Constants.TYPE, "license")
+                                        setResult(RESULT_OK, returnIntent)
+                                        finish()
 
-                                        ActivityStarter.of(DocumentActivity.getStartIntent(this,"license"))
-                                            .finishCurrentActivity()
-                                            .startFrom(this)
 
                                     } else {
                                         setError(user.body()?.msg.toString())
@@ -154,24 +192,6 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
                             }
                             Status.LOADING -> {
                                 showDialog()
-=======
-        viewModel.uploadDrivingLicense(
-            userPreferences.getUserDetails()?.userRef.toString(), "", "", null, null
-        ).observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        dismissDialog()
-                        resource.data?.let { user ->
-                            if (user.body()?.status.equals("success")) {
-
-                                /*     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
-                                         .finishAffinity()
-                                         .startFrom(this)*/
-
-                            } else {
-                                setError(user.body()?.msg.toString())
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
                             }
                         }
                     }

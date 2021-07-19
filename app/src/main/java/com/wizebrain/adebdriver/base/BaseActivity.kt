@@ -1,6 +1,8 @@
-package com.example.adebuser.base
+package com.wizebrain.adebdriver.base
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -17,12 +19,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.gms.tasks.OnCompleteListener
 
 import com.wizebrain.adebdriver.utils.PreferenceManager
 
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.wizebrain.adebdriver.R
+import com.wizebrain.adebdriver.utils.Constants
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -75,6 +80,8 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
 
+
+
     private val mDialog: KProgressHUD by lazy {
         KProgressHUD.create(this).apply {
             setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -98,6 +105,9 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         return date;
     }
+
+
+
 
 
 /*private val mDialog: Dialog by lazy {
@@ -127,6 +137,8 @@ fun setDefaultLatLng() {
         supportActionBar?.hide()
 
 
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             window.statusBarColor = ContextCompat.getColor(this, R.color.white)
@@ -136,12 +148,14 @@ fun setDefaultLatLng() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         }
+        generateFcmToken()
+        createNotificationChannel()
+
 
 
     }
 
 
-/*
 private fun generateFcmToken() {
     FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
         if (!task.isSuccessful) {
@@ -153,7 +167,6 @@ private fun generateFcmToken() {
 
     })
 }
-*/
 /*open fun openFragment(fragment: Fragment, tag: String) {
     addSlidingFragment(
      supportFragmentManager,
@@ -202,6 +215,19 @@ private fun generateFcmToken() {
         mFragment.show(fragmentManager, mString)
     }
 
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                Constants.CHANNE_ID,
+                Constants.CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.description = Constants.CHANNEL_DESC
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
 
     fun checkEmpty(editText: EditText): Boolean {
         return TextUtils.isEmpty(editText.text.trim())

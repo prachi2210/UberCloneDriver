@@ -4,6 +4,7 @@ import com.wizebrain.adebdriver.ui.auth.response.MessageResponse
 import com.wizebrain.adebdriver.ui.auth.response.SignUpResponse
 import com.wizebrain.adebdriver.ui.auth.response.LoginResponse
 import com.wizebrain.adebdriver.ui.map.response.GetBookingResponse
+import com.wizebrain.adebdriver.ui.map.response.RideAcceptResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -13,7 +14,7 @@ import retrofit2.http.*
 interface ApiService {
 
     @Multipart
-    @POST("api/v1/userRegister")
+    @POST("api/v1/driverRegister")
     suspend fun signUp(
         @Part("name") name: RequestBody?,
         @Part("email") email: RequestBody?,
@@ -44,6 +45,26 @@ interface ApiService {
     suspend fun logout(
         @Part("userRef") userRef: RequestBody?
     ): Response<MessageResponse>
+
+
+    @Multipart
+    @POST("api/v1/startTrip")
+    suspend fun startTrip(
+        @Part("rideId") rideId: RequestBody?,
+        @Part("type") type: RequestBody?
+    ): Response<MessageResponse>
+
+
+    @Multipart
+    @POST("api/v1/addRating")
+    suspend fun addRating(
+        @Part("rideId") rideId: RequestBody?,
+        @Part("userRef") userRef: RequestBody?,
+        @Part("toRef") driverRef: RequestBody?,
+        @Part("rating") ratting: RequestBody?,
+        @Part("description") description: RequestBody?
+    ): Response<MessageResponse>
+
 
     @Multipart
     @POST("api/v1/otpVerify")
@@ -81,10 +102,7 @@ interface ApiService {
         @Part("driverRef") driverRef: RequestBody?,
         @Part("rideId") rideId: RequestBody?,
         @Part("type") type: RequestBody?,
-    ): Response<MessageResponse>
-
-
-
+    ): Response<RideAcceptResponse>
 
 
     @Multipart
@@ -101,6 +119,7 @@ interface ApiService {
         @Part("userRef") userRef: RequestBody?,
         @Part("dlNo") dlNo: RequestBody?,
         @Part("carGearType") carGearType: RequestBody?,
+        @Part("carType") carType: RequestBody?,
         @Part frontSideUrl1: MultipartBody.Part?,
         @Part frontSideUrl2: MultipartBody.Part?
     ): Response<MessageResponse>

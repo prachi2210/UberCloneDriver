@@ -17,14 +17,6 @@ class ViewModelProviderFactory(private val apiHelper: ApiHelper) : ViewModelProv
         if (modelClass.isAssignableFrom(MapViewModel::class.java)) {
             return MapViewModel(AppRepository(apiHelper)) as T
         }
-/*
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(AppRepository(apiHelper)) as T
-        }
-
-        if (modelClass.isAssignableFrom(NavigationViewModel::class.java)) {
-            return NavigationViewModel(AppRepository(apiHelper)) as T
-        }*/
         throw IllegalArgumentException("Unknown class name")
     }
 }

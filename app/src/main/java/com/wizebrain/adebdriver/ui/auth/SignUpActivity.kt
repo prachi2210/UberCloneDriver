@@ -7,16 +7,14 @@ import android.util.Patterns
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.base.BaseActivity
+import com.wizebrain.adebdriver.base.BaseActivity
 import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.wizebrain.adebdriver.databinding.ActivitySignUpBinding
 import com.wizebrain.adebdriver.ui.auth.document_verification.DocumentActivity
-import com.wizebrain.adebdriver.ui.auth.forgotpassword.ForgotPasswordActivity
 import com.wizebrain.adebdriver.utils.ActivityStarter
-import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
 
 class SignUpActivity : BaseActivity(), View.OnClickListener {
@@ -90,7 +88,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                     binding.etPassword.text.toString().trim(),
                     binding.etUniqueNo.text.toString().trim(),
                     binding.etDrivingExp.text.toString().trim(),
-                    Constants.DEVICE_TOKEN
+                    userPreferences.getDeviceToken().trim()
                 ).observe(this, Observer {
                     it?.let { resource ->
                         when (resource.status) {

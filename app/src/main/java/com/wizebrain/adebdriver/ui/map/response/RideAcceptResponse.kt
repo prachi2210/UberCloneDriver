@@ -1,16 +1,16 @@
 package com.wizebrain.adebdriver.ui.map.response
 
+import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-data class GetBookingResponse(
+data class RideAcceptResponse(
     val msg: String?,
-    val rideData: RideData?,
+    val rideInfo: RideInfo?,
     val status: String?
 )
-
 @Parcelize
-data class RideData(
+data class RideInfo(
     val bookingStatus: String?,
     val carType: String?,
     val chooseType: String?,
@@ -37,4 +37,4 @@ data class RideData(
     val userName: String?,
     val userProfilePic: String?,
     val userRef: String?
-): Parcelable
+):Parcelable

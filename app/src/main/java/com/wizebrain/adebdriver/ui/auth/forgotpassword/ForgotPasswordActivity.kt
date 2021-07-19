@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.base.BaseActivity
+import com.wizebrain.adebdriver.base.BaseActivity
 import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.R

@@ -3,7 +3,6 @@ package com.wizebrain.adebdriver.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.wizebrain.adebdriver.ui.auth.response.UserInfo
 
 
 class PreferenceManager(context: Context) {
@@ -14,7 +13,8 @@ class PreferenceManager(context: Context) {
     private val TIME_TYPE = "time type"
     private val USER_NAME = "user name"
     private val DEVICE_TOKEN = "device token"
-
+    private val LATITUDE = "latitude"
+    private val LONGITUDE = "longitude"
     private val PHONENUMBER = "phoneNumber"
     private val NAME = "name"
     private val PHOTO = "photo"
@@ -55,7 +55,16 @@ class PreferenceManager(context: Context) {
     }
 
 
+    fun saveCurrentLatitude(latitude: String) {
+        mEditor.putString(LATITUDE, latitude)
+        mEditor.apply()
+    }
 
+
+    fun saveCurrentLongitude(longitude: String) {
+        mEditor.putString(LONGITUDE, longitude)
+        mEditor.apply()
+    }
 
 
     fun saveUserEmail(email: String) {
@@ -163,17 +172,14 @@ class PreferenceManager(context: Context) {
     fun getPhoto(): String {
         return sharedPreferences.getString(PHOTO, "")!!
     }
-
-    fun saveUserDetails(selfDetails: UserInfo?) {
-//        this.prefsEditor = appSharedPrefs.edit()
-        val gson = Gson()
-        val json = gson.toJson(selfDetails)
-        mEditor.putString("user_details", json)
-        mEditor.commit()
+    fun getLatitude(): String {
+        return sharedPreferences.getString(LATITUDE, "")!!
     }
 
-    fun getUserDetails(): UserInfo? {
-        val user_data= sharedPreferences.getString("user_details","")
-        return Gson().fromJson(user_data, UserInfo::class.java)
+    fun getLongitude(): String {
+        return sharedPreferences.getString(LONGITUDE, "")!!
     }
+
+
+
 }

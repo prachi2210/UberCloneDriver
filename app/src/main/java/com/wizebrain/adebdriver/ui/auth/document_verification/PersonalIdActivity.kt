@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.base.BaseActivity
+import com.wizebrain.adebdriver.base.BaseActivity
 import com.example.adebuser.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.BuildConfig
 import com.wizebrain.adebdriver.R
@@ -27,7 +27,7 @@ import com.wizebrain.adebdriver.databinding.ActivityPersonalIdBinding
 import com.wizebrain.adebdriver.extensions.loadImage
 import com.wizebrain.adebdriver.ui.auth.AuthViewModel
 import com.wizebrain.adebdriver.ui.auth.adapter.CustomSpinnerAdapter
-import com.wizebrain.adebdriver.utils.ActivityStarter
+import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
 import java.io.File
 import java.io.IOException
@@ -154,9 +154,11 @@ class PersonalIdActivity : BaseActivity(), View.OnClickListener {
                                 resource.data?.let { user ->
                                     if (user.body()?.status.equals("success")) {
                                         userPreferences.savePersonalID("personal")
-                                        ActivityStarter.of(DocumentActivity.getStartIntent(this,"personal"))
-                                            .finishCurrentActivity()
-                                                 .startFrom(this)
+                                        val returnIntent = Intent()
+                                        returnIntent.putExtra(Constants.TYPE, "personal")
+                                        setResult(RESULT_OK, returnIntent)
+                                        finish()
+
 
                                     } else {
                                         setError(user.body()?.msg.toString())

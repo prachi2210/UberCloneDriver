@@ -56,4 +56,56 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
     }
 
 
+    fun startTrip(
+        rideId: String,
+        type: String
+    ) = liveData(Dispatchers.IO)
+    {
+        val rideId = rideId.toRequestBody("multipart/form-data".toMediaType())
+        val type = type.toRequestBody("multipart/form-data".toMediaType())
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.startTrip(
+                        rideId, type
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
+
+    fun addRating(
+        rideId: String,
+        userRef: String,
+        driverRef: String,
+        ratting: String,
+        description: String
+    ) = liveData(Dispatchers.IO)
+    {
+        val rideId = rideId.toRequestBody("multipart/form-data".toMediaType())
+        val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
+        val driverRef = driverRef.toRequestBody("multipart/form-data".toMediaType())
+        val ratting = ratting.toRequestBody("multipart/form-data".toMediaType())
+        val description = description.toRequestBody("multipart/form-data".toMediaType())
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.addRating(
+                        rideId, userRef, driverRef, ratting, description
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
 }

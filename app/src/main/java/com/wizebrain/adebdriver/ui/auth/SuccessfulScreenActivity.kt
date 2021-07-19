@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.example.adebuser.base.BaseActivity
+import com.wizebrain.adebdriver.base.BaseActivity
 import com.wizebrain.adebdriver.databinding.ActivitySuccessfulScreenBinding
 import com.wizebrain.adebdriver.utils.ActivityStarter
 

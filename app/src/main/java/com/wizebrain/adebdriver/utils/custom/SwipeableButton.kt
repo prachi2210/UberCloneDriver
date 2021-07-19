@@ -304,7 +304,7 @@ open class SwipeableButton @JvmOverloads constructor(
      * Setting initial padding text in checked state
      * */
     private fun setTextEndTextPadding() {
-        buttonSwipeableTv.setPadding(slidingButtonIv.width, 0, 0, 0)
+        buttonSwipeableTv.setPadding(slidingButtonIv.width, 0, 1, 0)
     }
 
     /**
@@ -363,7 +363,7 @@ open class SwipeableButton @JvmOverloads constructor(
         val paddingAnimation = ValueAnimator.ofInt(0, slidingButtonIv.width)
         paddingAnimation.duration = animationDuration
         paddingAnimation.addUpdateListener {
-            buttonSwipeableTv.setPadding(it.animatedValue as Int, 0, 0, 0)
+            buttonSwipeableTv.setPadding(it.animatedValue as Int, 0, 1, 0)
         }
 
         val alphaAnimation = ValueAnimator.ofFloat(1F, 0F, 1F)

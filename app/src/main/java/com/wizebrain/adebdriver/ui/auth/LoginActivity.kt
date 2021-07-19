@@ -1,14 +1,27 @@
 package com.wizebrain.adebdriver.ui.auth
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
 import android.view.View
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.adebuser.base.BaseActivity
+import com.wizebrain.adebdriver.base.BaseActivity
 import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.example.adebuser.data.api.RetrofitBuilder
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.databinding.ActivityLoginBinding
@@ -16,12 +29,13 @@ import com.wizebrain.adebdriver.ui.auth.document_verification.DocumentActivity
 import com.wizebrain.adebdriver.ui.auth.forgotpassword.ForgotPasswordActivity
 import com.wizebrain.adebdriver.ui.map.DriverMapActivityScreen
 import com.wizebrain.adebdriver.utils.ActivityStarter
-import com.wizebrain.adebdriver.utils.Constants
+import com.wizebrain.adebdriver.utils.PermissionUtils
 import com.wizebrain.adebdriver.utils.Status
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: AuthViewModel
+    private val LOCATION_REQUEST_CODE = 23
 
     companion object {
 
@@ -31,12 +45,13 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
+        requestPermission()
         setupViewModel()
     }
 
@@ -45,6 +60,110 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             this,
             ViewModelProviderFactory(ApiHelper(RetrofitBuilder.apiService))
         ).get(AuthViewModel::class.java)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        when {
+            PermissionUtils.isAccessFineLocationGranted(this) -> {
+                when {
+                    PermissionUtils.isLocationEnabled(this) -> {
+                        setUpLocationListener()
+                    }
+                    else -> {
+                        PermissionUtils.showGPSNotEnabledDialog(this)
+                    }
+                }
+            }
+            else -> {
+                PermissionUtils.requestAccessFineLocationPermission(
+                    this,
+                    LOCATION_REQUEST_CODE
+                )
+            }
+        }
+
+    }
+    private fun requestPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_REQUEST_CODE
+            )
+        } else {
+            setUpLocationListener()
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    when {
+                        PermissionUtils.isLocationEnabled(this) -> {
+
+                            setUpLocationListener()
+                        }
+                        else -> {
+                            PermissionUtils.showGPSNotEnabledDialog(this)
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.location_permission_not_granted),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+
+    private fun setUpLocationListener() {
+        val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        // for getting the current location update after every 2 seconds with high accuracy
+        val locationRequest = LocationRequest.create().
+        setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            return
+        }
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
+            object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    super.onLocationResult(locationResult)
+                    for (location in locationResult.locations) {
+                        val latLng = LatLng(location.latitude, location.longitude)
+                      //  userPreferences.getDriveLicense()
+                        userPreferences.saveCurrentLatitude(location.latitude.toString())
+                        userPreferences.saveCurrentLongitude(location.longitude.toString())
+                    }
+                }
+            },
+            Looper.myLooper()
+        )
+
     }
 
     override fun onClick(v: View?) {
@@ -83,8 +202,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 viewModel.login(
                     binding.etMobile.text.toString().trim(),
                     binding.etPassword.text.toString().trim(),
-
-                    Constants.DEVICE_TOKEN
+                    userPreferences.getDeviceToken().trim(),
+                    userPreferences.getLatitude().trim(),
+                    userPreferences.getLongitude().trim()
                 ).observe(this, Observer {
                     it?.let { resource ->
                         when (resource.status) {
@@ -92,15 +212,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                 dismissDialog()
                                 resource.data?.let { user ->
                                     if (user.body()?.status.equals("success")) {
-<<<<<<< HEAD
                                         userPreferences.saveUserID(user.body()?.UserInfo?.id)
                                         userPreferences.saveUserRef(user.body()?.UserInfo?.userRef)
                                         userPreferences.saveName(user.body()?.UserInfo?.name)
-                                        userPreferences.savePhoto(user.body()?.UserInfo?.profilePic)
                                         userPreferences.savePhoneNumber(user.body()?.UserInfo?.phoneNumber)
                                         userPreferences.saveHealthReport(user.body()?.UserInfo?.healthReport)
                                         userPreferences.savePersonalID(user.body()?.UserInfo?.personalId)
                                         userPreferences.saveDriveLicense(user.body()?.UserInfo?.drivingLicense)
+                                        userPreferences.savePhoto(RetrofitBuilder.BASE_URL + user.body()?.UserInfo?.profilePic)
 
                                         if (user.body()?.UserInfo?.healthReport.equals("") ||
                                             user.body()?.UserInfo?.personalId.equals("")
@@ -120,17 +239,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                                 .startFrom(this)
                                         }
 
-=======
-                                        userPreferences.saveUserDetails(user.body()?.UserInfo)
-//                                        userPreferences.saveUserID(user.body()?.UserInfo?.id)
-//                                        userPreferences.saveUserRef(user.body()?.UserInfo?.userRef)
-//                                        userPreferences.saveName(user.body()?.UserInfo?.name)
-//                                        userPreferences.savePhoto(user.body()?.UserInfo?.profilePic)
-//                                        userPreferences.savePhoneNumber(user.body()?.UserInfo?.phoneNumber)
-                                        /*     ActivityStarter.of(HomeScreenActivity.getStartIntent(this))
-                                                 .finishAffinity()
-                                                 .startFrom(this)*/
->>>>>>> 03137f3dc1d59a4766cbb4c88bfe11acdbd2a2e0
 
                                     } else {
                                         setError(user.body()?.msg.toString())
@@ -152,5 +260,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
 
     }
+
 
 }
