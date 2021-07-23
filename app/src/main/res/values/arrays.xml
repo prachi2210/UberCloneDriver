@@ -17,13 +17,11 @@
     </string-array>
 
 
-
     <string-array name="car_gear_type">
         <item>Select</item>
         <item>AutoMatic</item>
         <item>Manual</item>
     </string-array>
-
 
 
     <string-array name="blood_group">
@@ -46,7 +44,6 @@
     </string-array>
 
 
-
     <string-array name="id_proof">
         <item>Select</item>
         <item>License</item>
@@ -62,6 +59,24 @@
     </string-array>
 
 
+    <string-array name="driver_module_names">
+        <item>Bookings</item>
+        <item>Stats</item>
+        <item>Documents</item>
+        <item>Payment</item>
+        <item>Support</item>
+        <item>Settings</item>
+    </string-array>
 
+
+    <array name="driver_module_drawable_icons">
+        <item>@drawable/ic_start_taxi</item>
+        <item>@drawable/ic_your_ride</item>
+        <item>@drawable/ic_rate_card</item>
+        <item>@drawable/ic_rate_card</item>
+        <item>@drawable/ic_support</item>
+        <item>@drawable/ic_settings</item>
+
+    </array>
 
 </resources>

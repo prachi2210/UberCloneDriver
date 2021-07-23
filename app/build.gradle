@@ -1,14 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-/*    id 'kotlin-parcelize'*/
     id 'kotlin-android-extensions'
 
 
 }
 
-/*    apply plugin: 'kotlin-parcelize'*/
-/*apply plugin: 'kotlin-android-extensions'*/
 
 android {
     compileSdkVersion 30
@@ -99,6 +96,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
 
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
+
+    implementation 'com.permissionx.guolindev:permissionx:1.4.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

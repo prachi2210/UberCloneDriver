@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:id="@+id/text_ntfcn"
+        android:textSize="@dimen/_12ssp"
+        android:text="Notification"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:textColor="@color/appColor"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:textSize="@dimen/_12ssp"
+        android:text="On"
+        android:id="@+id/ntcfnOn"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/_20sdp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:textColor="@color/black"
+        android:layout_below="@+id/text_ntfcn"
+        android:layout_gravity="center"
+        android:id="@+id/age_text"
+        android:textSize="@dimen/_12ssp"
+        android:text="Age Visibility"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:textColor="@color/appColor"
+        android:layout_gravity="center"
+        android:textSize="@dimen/_12ssp"
+        android:layout_below="@+id/ntcfnOn"
+        android:text="Enable"
+        android:id="@+id/ageEnable"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/_20sdp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/age_text"
+
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_12ssp"
+            android:layout_weight="1"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:text="Language"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:textColor="@color/appColor"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"
+            android:text="English"
+            android:gravity="end"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_20sdp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:textSize="@dimen/_12ssp"
+        android:layout_below="@+id/ageEnable"
+        android:text="Disable"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/_20sdp" />
+
+</RelativeLayout>

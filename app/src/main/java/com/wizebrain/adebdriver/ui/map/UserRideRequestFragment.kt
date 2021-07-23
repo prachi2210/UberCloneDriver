@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.adebuser.data.api.RetrofitBuilder
+import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.base.BaseFragment
 import com.wizebrain.adebdriver.databinding.FragmentUserRideRequestBinding
 import com.wizebrain.adebdriver.extensions.loadImage
@@ -24,8 +24,14 @@ class UserRideRequestFragment : BaseFragment() {
     private var id: String? = null
     private var userProfilePic: String? = null
     private var fareAmount: String? = null
-    private  var rideData:RideData?=null
-
+    private var rideData: RideData? = null
+    var clientRiderName = ""
+    var clientRiderPhoto = ""
+    var clientRiderPrice = ""
+    var clientRiderRideId = ""
+    var clientRiderPickupAddress = ""
+    var clientRiderDropOffAddress = ""
+    private var type: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,12 +42,16 @@ class UserRideRequestFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.apply {
-            rideData = getParcelable(Constants.RIDEDATA)
-            userName = rideData?.userName
-            id = rideData?.rideId
-            userProfilePic = rideData?.userProfilePic
-            fareAmount = rideData?.fareAmount
+            clientRiderName = getString(Constants.NAME).toString().trim()
+            clientRiderPhoto = getString(Constants.PHOTO).toString().trim()
+            clientRiderPrice = getString(Constants.PRICE).toString().trim()
+            clientRiderRideId = getString(Constants.RIDEID).toString().trim()
+            clientRiderPickupAddress = getString(Constants.PICKUPADDFRESS).toString().trim()
+            clientRiderDropOffAddress = getString(Constants.DROPOFFADDRESS).toString().trim()
+            type = getString(Constants.TYPE).toString().trim()
+
         }
     }
 
@@ -57,34 +67,51 @@ class UserRideRequestFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvName.text = userName
-        binding.tvPrice.text = "$ $fareAmount"
-        if (userProfilePic.toString().trim().isNotEmpty()) {
-            binding.ivProfile.loadImage(RetrofitBuilder.BASE_URL + userProfilePic)
+        binding.tvName.text = clientRiderName
+        binding.tvPrice.text = "$ ${clientRiderPrice}"
+
+        if (clientRiderPhoto.isNotEmpty()) {
+            binding.ivProfile.loadImage(RetrofitBuilder.BASE_URL + clientRiderPhoto)
         }
+
+        binding.toAddress.text = clientRiderDropOffAddress
+        binding.tvFromAddress.text = clientRiderPickupAddress
+
+
+
 
         binding.btnAccept.setOnClickListener {
             //1 for accept
-            callback?.onAcceptRejectClose(1, rideData)
+            callback?.onAcceptRejectClose(1, clientRiderRideId)
         }
 
         binding.btnReject.setOnClickListener {
-            callback?.onAcceptRejectClose(0, rideData)
+            callback?.onAcceptRejectClose(0, clientRiderRideId)
         }
 
 
     }
 
 
-
     companion object {
         @JvmStatic
         fun newInstance(
-            rideData: RideData?
+            clientRiderName: String,
+            clientRiderPhoto: String,
+            clientRiderPrice: String,
+            clientRiderRideId: String,
+            clientRiderPickupAddress: String,
+            clientDropOffAddress: String, type: String
         ) =
             UserRideRequestFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(Constants.RIDEDATA, rideData)
+                    putString(Constants.NAME, clientRiderName)
+                    putString(Constants.PHOTO, clientRiderPhoto)
+                    putString(Constants.PRICE, clientRiderPrice)
+                    putString(Constants.RIDEID, clientRiderRideId)
+                    putString(Constants.PICKUPADDFRESS, clientRiderPickupAddress)
+                    putString(Constants.DROPOFFADDRESS, clientDropOffAddress)
+                    putString(Constants.TYPE, type)
                 }
             }
     }

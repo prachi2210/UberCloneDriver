@@ -1,4 +1,4 @@
-package com.wizebrain.adebdriver.activity
+package com.wizebrain.adebdriver.ui.rate
 
 import android.content.Context
 import android.content.Intent
@@ -7,12 +7,13 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.wizebrain.adebdriver.base.BaseActivity
-import com.example.adebuser.data.api.RetrofitBuilder
-import com.wizebrain.adebdriver.R
+import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.data.api.ApiHelper
 import com.wizebrain.adebdriver.databinding.ActivityRateUserBinding
+import com.wizebrain.adebdriver.ui.map.DriverMapActivityScreen
 import com.wizebrain.adebdriver.ui.map.MapViewModel
+import com.wizebrain.adebdriver.utils.ActivityStarter
 import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.Status
 
@@ -53,48 +54,43 @@ class RateUserActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun giveRatingToUser() {
-        when {
-            checkEmpty(binding.etComment) -> {
-                setError(getString(R.string.feedback_validation))
-            }
-
-
-            else -> {
-                viewModel.addRating(
-                    intent.getStringExtra(Constants.RIDE_ID).toString(),
-                    userPreferences.getUserREf(),
-                    intent.getStringExtra(Constants.USER_REF).toString(),
-                    "3",
-                    binding.etComment.toString().trim(),
-                ).observe(this, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                dismissDialog()
-                                resource.data?.let { user ->
-                                    if (user.body()?.status.equals("success")) {
-                                        showToast(this, "Thanks for the feedback")
-
-                                    } else {
-                                        setError(user.body()?.msg.toString())
-                                    }
-                                }
-                            }
-                            Status.ERROR -> {
-                                dismissDialog()
-                                // setError(it.message.toString())
+        viewModel.addRating(
+            intent.getStringExtra(Constants.RIDE_ID).toString(),
+            userPreferences.getUserREf(),
+            intent.getStringExtra(Constants.USER_REF).toString(),
+            "3",
+            binding.etComment.toString().trim(),
+        ).observe(this, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        dismissDialog()
+                        resource.data?.let { user ->
+                            if (user.body()?.status.equals("success")) {
                                 showToast(this, "Thanks for the feedback")
+                                ActivityStarter.of(DriverMapActivityScreen.getStartIntent(this))
+                                    .finishAffinity()
+                                    .startFrom(this)
 
-
-                            }
-                            Status.LOADING -> {
-                                showDialog()
+                            } else {
+                                setError(user.body()?.msg.toString())
                             }
                         }
                     }
-                })
+                    Status.ERROR -> {
+                        dismissDialog()
+                        // setError(it.message.toString())
+                        showToast(this, "Thanks for the feedback")
+
+
+                    }
+                    Status.LOADING -> {
+                        showDialog()
+                    }
+                }
             }
-        }
+        })
+
     }
 
     override fun onClick(v: View?) {

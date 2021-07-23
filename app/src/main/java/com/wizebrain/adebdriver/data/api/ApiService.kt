@@ -106,11 +106,21 @@ interface ApiService {
 
 
     @Multipart
+    @POST("api/v1/driverLocationUpdate")
+    suspend fun driverLocationUpdate(
+        @Part("driverRef") driverRef: RequestBody?,
+        @Part("latitude") latitude: RequestBody?,
+        @Part("longitude") longitude: RequestBody?,
+    ): Response<MessageResponse>
+
+
+    @Multipart
     @POST("api/v1/CreateNewPassword")
     suspend fun createNewPassword(
         @Part("phoneNumber") phoneNumber: RequestBody?,
         @Part("password") password: RequestBody?
     ): Response<MessageResponse>
+
 
 
     @Multipart
@@ -145,6 +155,13 @@ interface ApiService {
         @Part("bloodGroup") bloodGroup: RequestBody?,
         @Part("surgery") surgery: RequestBody?,
         @Part healthReportFile: MultipartBody.Part?
+    ): Response<MessageResponse>
+
+    @Multipart
+    @POST("api/v1/onlineStatusUpdate")
+    suspend fun onlineStatusUpdate(
+        @Part("userRef") userRef: RequestBody?,
+        @Part("type") type: RequestBody?,
     ): Response<MessageResponse>
 
 

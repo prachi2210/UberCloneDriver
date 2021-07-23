@@ -1,6 +1,7 @@
 package com.wizebrain.adebdriver.data.api.repository
 
 import com.wizebrain.adebdriver.data.api.ApiHelper
+import com.wizebrain.adebdriver.data.api.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -101,6 +102,13 @@ class AppRepository(var apiHelper: ApiHelper) {
         type: RequestBody?,
     )= apiHelper.acceptRideByDriver(driverRef,rideId,type)
 
+
+    suspend fun driverLocationUpdate(
+        driverRef: RequestBody?,
+        latitude: RequestBody?,
+        longitude: RequestBody?,
+    )= apiHelper.driverLocationUpdate(driverRef,latitude,longitude)
+
     suspend fun createNewPassword(
         phoneNumber: RequestBody?,
         password: RequestBody?
@@ -143,6 +151,14 @@ class AppRepository(var apiHelper: ApiHelper) {
 
         healthReportFile: MultipartBody.Part?
     ) = apiHelper.uploadHealthReport(userRef, bloodGroup, surgery, healthReportFile)
+
+
+
+    suspend fun onlineStatusUpdate(
+        userRef: RequestBody?,
+        type: RequestBody?,
+    )= apiHelper.onlineStatusUpdate(userRef, type)
+
 
 
     /*

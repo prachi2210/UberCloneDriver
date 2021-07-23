@@ -18,7 +18,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.wizebrain.adebdriver.base.BaseActivity
-import com.example.adebuser.data.api.RetrofitBuilder
+import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.BuildConfig
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
@@ -59,7 +59,7 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
         setContentView(binding.root)
         setupViewModel()
         gearTypeList = resources.getStringArray(R.array.car_gear_type)
-        carTypeList=resources.getStringArray(R.array.car_type)
+        carTypeList = resources.getStringArray(R.array.car_type)
 
 
         val spinnerGearAdapter = CustomSpinnerAdapter(
@@ -87,9 +87,6 @@ class DrivingLicenseActivity : BaseActivity(), View.OnClickListener {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-
-
-
 
 
         val spinnerCarType = CustomSpinnerAdapter(

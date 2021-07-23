@@ -109,6 +109,11 @@ class ApiHelper(private val apiService: ApiService) {
     )= apiService.acceptRideByDriver(driverRef,rideId,type)
 
 
+    suspend fun driverLocationUpdate(
+     driverRef: RequestBody?,
+     latitude: RequestBody?,
+      longitude: RequestBody?,
+    )= apiService.driverLocationUpdate(driverRef,latitude,longitude)
 
     suspend fun createNewPassword(
         phoneNumber: RequestBody?,
@@ -152,6 +157,14 @@ class ApiHelper(private val apiService: ApiService) {
         healthReportFile: MultipartBody.Part?
     ) = apiService.uploadHealthReport(userRef, bloodGroup, surgery, healthReportFile)
 
+
+
+
+
+    suspend fun onlineStatusUpdate(
+userRef: RequestBody?,
+  type: RequestBody?,
+    )= apiService.onlineStatusUpdate(userRef, type)
 
     /*
       suspend fun getSignUp(

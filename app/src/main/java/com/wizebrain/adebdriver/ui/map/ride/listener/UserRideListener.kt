@@ -6,10 +6,11 @@ import com.wizebrain.adebdriver.ui.map.response.RideInfo
 interface UserRideListener {
     fun onAcceptRejectClose(
         type: Int,
-        rideData: RideData?,
+        rideId: String,
     )
-    fun onStartTrip(rideInfo: RideInfo?)
-    fun onEndTrip(rideInfo: RideInfo?)
+
+    fun onStartTrip(rideId: String)
+    fun onEndTrip(rideId: String)
     fun openClose(type: Int)
 
 }

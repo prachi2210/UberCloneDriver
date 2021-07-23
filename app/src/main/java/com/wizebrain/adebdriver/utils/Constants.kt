@@ -1,28 +1,37 @@
 package com.wizebrain.adebdriver.utils
 
 object Constants {
-    const val PREFS_FILE_NAME = "ADEB USer"
+    const val PREFS_FILE_NAME = "ADEB Driver"
     const val USER_ID = "user id"
     const val RIDE_ID = "ride id"
     const val USER_REF = "userRef"
     const val ACTIVITY_TAG = "tag"
     const val USER_NAME = "username"
     const val PHONENUMBER = "phonenumber"
+    const val RATING = "rating"
     const val OTP = "otp"
-    const val NAME = "name"
     const val PHOTO = "photo"
     const val RIDEDATA = "ride_data"
     const val RIDEINFO = "ride_info"
-
     const val DEFAULTTIME = "EEE MMM dd hh:mm:ss z yyyy"
-    const val CHANNE_ID = "advent_mingle"
-    const val CHANNEL_NAME = "Advent mingle"
+    const val CHANNE_ID = "adeb_driver"
+    const val CHANNEL_NAME = "ADEB Driver"
     const val CHANNEL_DESC = "firebase push notification"
     const val DEVICE_TOKEN = "device token"
+    const val NOTIFICATION_BROADCASTER = "notification_broadcaster"
     const val TYPE = "type"
     const val ACTION_CALL = "action_call"
     const val DISCONNECT_CALL = "disconnect_call"
     const val SENDTOREF = "sendToRef"
     const val SENDFROMREF = "sendFromRef"
-
+    const val PICKUPADDFRESS = "pickup Address"
+    const val DROPOFFADDRESS = "drop off Address"
+    const val RIDEID = "rideId"
+    const val PRICE = "price"
+    const val NAME = "name"
+    //ride canceled
+    const val rideCancelled = "ride canceled"
+    const val bookingConfirmation = "bookingConfirmation"
+    const val ONLINE = "online"
+    const val OFFLINE = "offline"
 }

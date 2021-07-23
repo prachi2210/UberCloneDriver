@@ -1,59 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:orientation="vertical"
-      android:layout_marginTop="@dimen/_100sdp"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_100sdp"
+        android:orientation="vertical">
 
 
         <ImageView
             android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
             android:src="@drawable/ic_baseline_check_circle_outline_24"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:tint="#72A674"
-            android:layout_height="@dimen/_90sdp"/>
+            app:tint="#72A674" />
+
         <TextView
             android:layout_width="wrap_content"
-            android:text="Verified!"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/poppins_bold"
-            android:textSize="@dimen/_13ssp"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Verified!"
             android:textColor="#000"
-            android:layout_height="wrap_content"/>
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
-            android:text="You have successfully verified your phone number.\nPlease use your number for sign in\nwhen logging in."
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_10ssp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="You have successfully verified your phone number.\nPlease use your number for sign in\nwhen logging in."
             android:textColor="#000"
-            android:layout_height="wrap_content"/>
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <TextView
-        android:layout_width="match_parent"
-        android:text="LOGIN"
-        android:textStyle="bold"
         android:id="@+id/continue_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="30dp"
-        android:gravity="center"
-        android:paddingVertical="3dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="@dimen/_40sdp"
         android:background="@drawable/round_corner_button"
         android:fontFamily="@font/poppins_regular"
-        android:textSize="14sp"
+        android:gravity="center"
+        android:paddingVertical="3dp"
+        android:text="LOGIN"
         android:textColor="@color/white"
-        android:layout_height="45dp"/>
+        android:textSize="14sp"
+        android:textStyle="bold" />
 </RelativeLayout>

@@ -18,7 +18,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.wizebrain.adebdriver.base.BaseActivity
-import com.example.adebuser.data.api.RetrofitBuilder
+import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.BuildConfig
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory

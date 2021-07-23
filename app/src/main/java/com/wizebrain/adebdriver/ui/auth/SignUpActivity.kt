@@ -8,7 +8,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.wizebrain.adebdriver.base.BaseActivity
-import com.example.adebuser.data.api.RetrofitBuilder
+import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.data.api.ApiHelper
@@ -96,11 +96,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                                 dismissDialog()
                                 resource.data?.let { user ->
                                     if (user.body()?.status.equals("success")) {
-                                        userPreferences.saveUserID(user.body()?.data?.id)
-                                        userPreferences.saveUserRef(user.body()?.data?.userRef)
-                                        userPreferences.saveName(user.body()?.data?.name)
-                                        userPreferences.savePhoto(user.body()?.data?.profilePic)
-                                        userPreferences.savePhoneNumber(user.body()?.data?.phoneNumber)
                                         ActivityStarter.of(DocumentActivity.getStartIntent(this))
                                             .finishAffinity()
                                             .startFrom(this)

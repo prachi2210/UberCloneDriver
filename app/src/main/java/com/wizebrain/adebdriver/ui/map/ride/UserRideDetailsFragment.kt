@@ -1,11 +1,10 @@
 package com.wizebrain.adebdriver.ui.map.ride
 
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.adebuser.data.api.RetrofitBuilder
+import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.base.BaseFragment
 import com.wizebrain.adebdriver.databinding.FragmentUserRideDetailsBinding
 import com.wizebrain.adebdriver.extensions.loadImage

@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -36,6 +37,8 @@ import java.util.*
 abstract class BaseActivity : AppCompatActivity() {
     lateinit var activity: Activity
     private val TAG = BaseActivity::class.java.simpleName
+    var latitude=""
+    var longitude=""
 /*    private var kProgress: KProgressHUD? = null
 
     }*/
@@ -163,6 +166,7 @@ private fun generateFcmToken() {
         }
         // Get new FCM registration token
         val token = task.result
+        Log.e(TAG, "TOKEN ${token}")
         userPreferences.saveDeviceToken(token)
 
     })

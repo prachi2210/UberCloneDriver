@@ -12,6 +12,28 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
 
 
+
+
+    fun onlineStatusUpdate(userRef: String, type: String) = liveData(Dispatchers.IO)
+    {
+        val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
+        val type = type.toRequestBody("multipart/form-data".toMediaType())
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.onlineStatusUpdate(
+                        userRef, type
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
+
     fun getBookingByDriver(driverRef: String) = liveData(Dispatchers.IO)
     {
         val driverRef = driverRef.toRequestBody("multipart/form-data".toMediaType())
@@ -56,6 +78,38 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
     }
 
 
+    /*    suspend fun driverLocationUpdate(
+        driverRef: RequestBody?,
+        latitude: RequestBody?,
+        longitude: RequestBody?,
+    )= apiHelper.driverLocationUpdate(driverRef,latitude,longitude)*/
+
+
+    fun driverLocationUpdate(
+        driverRef: String, latitude: String,
+        longitude: String,
+    ) = liveData(Dispatchers.IO)
+    {
+        val driverRef = driverRef.toRequestBody("multipart/form-data".toMediaType())
+        val latitude = latitude.toRequestBody("multipart/form-data".toMediaType())
+        val longitude = longitude.toRequestBody("multipart/form-data".toMediaType())
+
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.driverLocationUpdate(
+                        driverRef, latitude, longitude
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
     fun startTrip(
         rideId: String,
         type: String
@@ -76,7 +130,6 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }
     }
-
 
 
     fun addRating(

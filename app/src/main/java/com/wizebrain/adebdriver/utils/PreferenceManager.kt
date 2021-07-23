@@ -6,7 +6,7 @@ import com.google.gson.Gson
 
 
 class PreferenceManager(context: Context) {
-    private val PREFS_FILE_NAME = "ADEB User"
+    private val PREFS_FILE_NAME = "ADEB Driver"
     private val USER_ID = "user id"
     private val USER_REF = "user ref"
     private val USER_Email = "user email"
@@ -19,13 +19,9 @@ class PreferenceManager(context: Context) {
     private val NAME = "name"
     private val PHOTO = "photo"
     private val PERSONAL_ID = "personal_id"
-
-
-
+    private val ONLINE_STATUS="online_status"
     private val DRIVER_LICENSE = "driver_license"
     private val HEALTH = "health"
-
-
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE)
     private val mEditor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -131,6 +127,16 @@ class PreferenceManager(context: Context) {
         mEditor.apply()
     }
 
+
+    fun saveOnlineStatus(status: String) {
+        mEditor.putString(ONLINE_STATUS, status)
+        mEditor.apply()
+    }
+
+
+    fun getOnlineStatus():String{
+        return sharedPreferences.getString(ONLINE_STATUS, "")!!
+    }
 
     fun getPersonalID():String{
         return sharedPreferences.getString(PERSONAL_ID, "")!!
