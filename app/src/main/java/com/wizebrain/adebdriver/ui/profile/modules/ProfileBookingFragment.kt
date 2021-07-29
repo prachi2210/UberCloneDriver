@@ -8,11 +8,20 @@ import android.view.ViewGroup
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.base.BaseFragment
 import com.wizebrain.adebdriver.databinding.FragmentProfileBookingBinding
+import com.wizebrain.adebdriver.ui.profile.modules.adapter.ProfileBookingAdapter
 
 
 class ProfileBookingFragment : BaseFragment() {
     private var _binding: FragmentProfileBookingBinding? = null
     private val binding get() = _binding!!
+
+
+    private val profileBookingAdapter: ProfileBookingAdapter by lazy {
+        ProfileBookingAdapter(requireActivity())
+    }
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,6 +34,7 @@ class ProfileBookingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.rvTransactions.adapter=profileBookingAdapter
 
     }
 

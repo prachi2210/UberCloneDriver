@@ -1,10 +1,9 @@
 package com.wizebrain.adebdriver.ui.map
 
 import android.Manifest
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.*
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -19,27 +18,28 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.directions.route.*
-import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.Polyline
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.*
 import com.wizebrain.adebdriver.MyApplication
 import com.wizebrain.adebdriver.R
-import com.wizebrain.adebdriver.ui.rate.RateUserActivity
 import com.wizebrain.adebdriver.base.BaseActivity
 import com.wizebrain.adebdriver.base.ViewModelProviderFactory
 import com.wizebrain.adebdriver.data.api.ApiHelper
+import com.wizebrain.adebdriver.data.api.RetrofitBuilder
 import com.wizebrain.adebdriver.databinding.ActivityDriverMapScreenBinding
 import com.wizebrain.adebdriver.extensions.hide
+import com.wizebrain.adebdriver.extensions.loadImage
 import com.wizebrain.adebdriver.extensions.show
-import com.wizebrain.adebdriver.ui.auth.LoginActivity
+import com.wizebrain.adebdriver.services.UpdateLocationService
 import com.wizebrain.adebdriver.ui.map.response.RideInfo
 import com.wizebrain.adebdriver.ui.map.ride.StartRideFragment
 import com.wizebrain.adebdriver.ui.map.ride.listener.UserRideListener
 import com.wizebrain.adebdriver.ui.profile.DriverProfileActivity
+import com.wizebrain.adebdriver.ui.rate.RateUserActivity
 import com.wizebrain.adebdriver.utils.ActivityStarter
 import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.PermissionUtils
@@ -71,6 +71,9 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
     var clientRiderRideId = ""
     var clientRiderPickupAddress = ""
     var clientRiderDropOffAddress = ""
+    private lateinit var jobScheduler: JobScheduler
+    private var destinationLatitude:String=""
+    private var  destinationLogitude:String=""
 
 
     companion object {
@@ -124,8 +127,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
             )
 
 
-        } else if (intent?.getStringExtra(Constants.TYPE).toString()
-                .equals(Constants.rideCancelled)
+        } else if (intent?.getStringExtra(Constants.TYPE).toString() == Constants.rideCancelled
         ) {
             rideCancelled()
         }
@@ -174,8 +176,6 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.e(TAG, "onBroadCastReceiver before intent${intent}")
             Log.e(TAG, "onBroadCastReceiver Name ${intent?.getStringExtra(Constants.TYPE)}")
-
-
             if (intent?.getStringExtra(Constants.TYPE).toString() != null) {
 
                 if (intent?.getStringExtra(Constants.TYPE).toString()
@@ -197,9 +197,21 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
     }
 
 
+    var locationUpdateBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Log.e(TAG, "onBroadCastReceiver before intent${intent}")
+            //location update
+
+            setUpLocationListener()
+
+
+        }
+    }
+
+
     private fun openStartRide(intent: Intent) {
         Log.e(TAG, "openStartRide $intent")
-        if (intent?.hasExtra(Constants.NAME)) {
+        if (intent.hasExtra(Constants.NAME)) {
             clientRiderName = intent.getStringExtra(Constants.NAME).toString().trim()
             clientRiderPhoto = intent.getStringExtra(Constants.PHOTO).toString().trim()
             clientRiderPrice = intent.getStringExtra(Constants.PRICE).toString().trim()
@@ -230,16 +242,51 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         }
     }
 
+
+    private fun startJobSchedular() {
+        jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        val jobInfo = JobInfo.Builder(123, ComponentName(this, UpdateLocationService::class.java))
+        val job = jobInfo.setRequiresCharging(false)
+            .setMinimumLatency(1)
+            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+            .setOverrideDeadline(3 * 60 * 1000).build()
+
+        jobScheduler.schedule(job)
+    }
+
+    private fun stopJobSchedular() {
+        if (jobScheduler != null) {
+            jobScheduler.cancelAll()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDriverMapScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         LocalBroadcastManager.getInstance(this).registerReceiver(
             notificationBroadcastReceiver,
             IntentFilter(getString(R.string.action_notification_foreground))
         )
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+            locationUpdateBroadcastReceiver,
+            IntentFilter(getString(R.string.location_update))
+        )
+
+
+
+
+        polylines = ArrayList()
         Log.e(TAG, "onCreate called")
+
+        if (userPreferences.getPhoto().isNotEmpty())
+            binding.ivProfile.loadImage(userPreferences.getPhoto())
+
+
+
         requestPermission()
         setUpLocationListener()
 
@@ -304,6 +351,10 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         }
 
     }
+
+    /*val intent = Intent(Intent.ACTION_DIAL)
+intent.data = Uri.parse("tel:<number>")
+startActivity(intent)*/
 
     private fun onlineStatus(type: String) {
         viewModel.onlineStatusUpdate(
@@ -426,15 +477,15 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
             }
 
             binding.ivNotification -> {
-                userPreferences.clearPrefs()
-                ActivityStarter.of(LoginActivity.getStartIntent(this))
-                    .finishAffinity()
-                    .startFrom(this)
+                /*           userPreferences.clearPrefs()
+                           ActivityStarter.of(LoginActivity.getStartIntent(this))
+                               .finishAffinity()
+                               .startFrom(this)*/
 
             }
 
             binding.tvOpenFragment -> {
-                openClose(1)
+                openClose(0)
 
 
             }
@@ -501,6 +552,10 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
         //type 0 reject //type 1 accept
         if (type.equals("0")) {
+
+            //cancel ride dialog
+
+
             cancelRideDialog(type.toString(), rideId)
         } else {
             acceptReject(type.toString(), rideId)
@@ -513,6 +568,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         //finding routes
 
         //start trip type 0
+        binding.tvOpenFragment.text = getString(R.string.end_trip)
         startTrip(rideId.toString().trim())
 
 
@@ -528,6 +584,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
 
     private fun cancelRideDialog(type: String, rideId: String) {
+        erasePolylines()
         val builder =
             androidx.appcompat.app.AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.alert))
@@ -600,9 +657,9 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
     private fun endTrip(rideId: String) {
         binding.frameRideStart.hide()
-
+        erasePolylines()
         viewModel.startTrip(
-            rideId, "0"
+            rideId, "0","10"
         ).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -639,10 +696,12 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
     private fun startTrip(rideId: String) {
         viewModel.startTrip(
-            rideId, "1"
+            rideId, "1","10"
+
         ).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
+
                     Status.SUCCESS -> {
                         dismissDialog()
                         resource.data?.let { user ->
@@ -650,21 +709,25 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
                                 //Nothing happen start routing
 
                                 binding.tvOpenFragment.text = getString(R.string.end_your_trip)
+                                startJobSchedular()
 
-                                var pickUpLat = rideInfo?.pickupLat.toString().trim().toDouble()
-                                var pickUpLong =
-                                    rideInfo?.pickupLog.toString().trim().toDouble()
-                                var dropOffLat =
-                                    rideInfo?.dropOffLat.toString().trim().toDouble()
-                                var dropOffLong =
-                                    rideInfo?.dropOffLog.toString().trim().toDouble()
-                                var startLatLong = LatLng(pickUpLat, pickUpLong)
-                                var endLatLong = LatLng(dropOffLat, dropOffLong)
-                                startPoint = startLatLong
-                                endPoint = endLatLong
-                                startingLocation = rideInfo?.pickupName.toString().trim()
-                                endingLocation = rideInfo?.dropOffName.toString().trim()
-                                findroutes(startLatLong, endLatLong)
+                                ///service and routing code should present
+
+
+                                /*    var pickUpLat = rideInfo?.pickupLat.toString().trim().toDouble()
+                                    var pickUpLong =
+                                        rideInfo?.pickupLog.toString().trim().toDouble()
+                                    var dropOffLat =
+                                        rideInfo?.dropOffLat.toString().trim().toDouble()
+                                    var dropOffLong =
+                                        rideInfo?.dropOffLog.toString().trim().toDouble()
+                                    var startLatLong = LatLng(pickUpLat, pickUpLong)
+                                    var endLatLong = LatLng(dropOffLat, dropOffLong)
+                                    startPoint = startLatLong
+                                    endPoint = endLatLong
+                                    startingLocation = rideInfo?.pickupName.toString().trim()
+                                    endingLocation = rideInfo?.dropOffName.toString().trim()
+                                    findRoutes(startLatLong, endLatLong)*/
 
 
                             } else {
@@ -685,6 +748,10 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         })
     }
 
+
+    //rideDistance code need to be added
+
+
     private fun acceptReject(
         type: String,
         rideId: String
@@ -693,7 +760,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         viewModel.acceptRideByDriver(
             userPreferences.getUserREf().trim(),
             rideId.toString(),
-            type
+            type, "10"
 
         ).observe(this, Observer {
             it?.let { resource ->
@@ -716,6 +783,10 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
                                     binding.tvOpenFragment.text =
                                         getString(R.string.start_your_trip)
 
+                                    destinationLatitude= rideInfo?.dropOffLat.toString()
+                                    destinationLogitude= rideInfo?.dropOffLog.toString()
+
+
                                     //here type 0 defines that you have started the ride after accepting it
                                     openFragment(
                                         StartRideFragment.newInstance(
@@ -728,7 +799,24 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
 
                                         )
+
+
                                     )
+
+                                    var pickUpLat = rideInfo?.pickupLat.toString().trim().toDouble()
+                                    var pickUpLong =
+                                        rideInfo?.pickupLog.toString().trim().toDouble()
+                                    var dropOffLat =
+                                        rideInfo?.dropOffLat.toString().trim().toDouble()
+                                    var dropOffLong =
+                                        rideInfo?.dropOffLog.toString().trim().toDouble()
+                                    var startLatLong = LatLng(pickUpLat, pickUpLong)
+                                    var endLatLong = LatLng(dropOffLat, dropOffLong)
+                                    startPoint = startLatLong
+                                    endPoint = endLatLong
+                                    startingLocation = rideInfo?.pickupName.toString().trim()
+                                    endingLocation = rideInfo?.dropOffName.toString().trim()
+                                    findRoutes(startLatLong, endLatLong)
                                 }
 
 
@@ -756,19 +844,20 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         Log.e(TAG, "onMapReady $p0")
         googleMap = p0
         googleMap!!.setOnMapClickListener(this)
+        googleMap!!.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.uber_style_map));
 
 
-        /*      val latLng = LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())
-              val markerOptions = MarkerOptions().position(latLng)
-              googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-              googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f))
-              googleMap!!.addMarker(markerOptions)*/
+        /*   val latLng = LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())
+           val markerOptions = MarkerOptions().position(latLng)
+           googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+           googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f))
+           googleMap!!.addMarker(markerOptions)*/
     }
 
 
 /*find routes*/
 
-    private fun findroutes(startPoint: LatLng?, endPoint: LatLng?) {
+    private fun findRoutes(startPoint: LatLng?, endPoint: LatLng?) {
         if (startPoint == null || endPoint == null) {
             Toast.makeText(this, "Unable to get location", Toast.LENGTH_LONG).show()
         } else {
@@ -784,6 +873,15 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
     }
     //
 
+    private fun erasePolylines() {
+        for (line in polylines!!) {
+            line.remove()
+        }
+        polylines!!.clear()
+        googleMap!!.clear()
+
+
+    }
 
     override fun onRoutingFailure(p0: RouteException?) {
         Log.e(TAG, "onRoutingFailure Exception  ${p0?.message}")
@@ -816,7 +914,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         //add route(s) to the map using polyline
         for (i in route!!.indices) {
             if (i == shortestRouteIndex) {
-                polyOptions.color(ContextCompat.getColor(this, R.color.text_blue))
+                polyOptions.color(ContextCompat.getColor(this, R.color.dark_blue))
                 polyOptions.width(14f)
                 polyOptions.addAll(route[shortestRouteIndex].points)
                 val polyline: Polyline = googleMap!!.addPolyline(polyOptions)
@@ -846,7 +944,6 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         endMarker.title(endingLocation)
         googleMap?.addMarker(endMarker)
 
-
     }
 
     override fun onRoutingCancelled() {
@@ -860,16 +957,6 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         }
 
 
-/*    @SuppressLint("MissingPermission")
-    private fun startLocationUpdates() {
-        mLocationManager =
-            getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        fusedLocationProviderClient.requestLocationUpdates(
-            mLocationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
-    }*/
 
 
     private fun stopLocationUpdates() {
@@ -903,6 +990,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
                         for (location in locationResult.locations) {
 
                             val latLng = LatLng(location.latitude, location.longitude)
+
                             val markerOptions = MarkerOptions().position(latLng)
                             if (googleMap != null) {
                                 googleMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
@@ -937,6 +1025,9 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         LocalBroadcastManager.getInstance(this)
             .unregisterReceiver(notificationBroadcastReceiver)
 
+
+        LocalBroadcastManager.getInstance(this)
+            .unregisterReceiver(locationUpdateBroadcastReceiver)
 
     }
 }

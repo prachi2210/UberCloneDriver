@@ -37,11 +37,12 @@ import com.wizebrain.adebdriver.utils.Status
 class LoginActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: AuthViewModel
-    private val LOCATION_REQUEST_CODE = 23
+
     private val TAG = BaseActivity::class.java.simpleName
 
     companion object {
-
+        private const val PERMISSION_REQ_ID_RECORD_AUDIO = 22
+        private val LOCATION_REQUEST_CODE = 23
         fun getStartIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
         }
@@ -69,7 +70,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         )
 
 
-        requestPermission()
+
         setupViewModel()
     }
 
@@ -103,21 +104,17 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     }
 
-    private fun requestPermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                LOCATION_REQUEST_CODE
-            )
-        } else {
-            setUpLocationListener()
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     override fun onRequestPermissionsResult(
@@ -239,6 +236,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                         userPreferences.saveHealthReport(user.body()?.UserInfo?.healthReport?.id)
                                         userPreferences.savePersonalID(user.body()?.UserInfo?.personalId?.id)
                                         userPreferences.saveDriveLicense(user.body()?.UserInfo?.drivingLicense?.id)
+                                        userPreferences.savePhoto(RetrofitBuilder.BASE_URL+user.body()?.UserInfo?.profilePic)
+
                                         userPreferences.savePhoto(RetrofitBuilder.BASE_URL + user.body()?.UserInfo?.profilePic)
                                         if (user.body()?.UserInfo?.healthReport?.id.equals("") ||
                                             user.body()?.UserInfo?.personalId?.id.equals("")

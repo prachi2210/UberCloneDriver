@@ -21,24 +21,25 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.tasks.OnCompleteListener
-
-import com.wizebrain.adebdriver.utils.PreferenceManager
-
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.wizebrain.adebdriver.R
 import com.wizebrain.adebdriver.utils.Constants
-
+import com.wizebrain.adebdriver.utils.PreferenceManager
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 abstract class BaseActivity : AppCompatActivity() {
     lateinit var activity: Activity
     private val TAG = BaseActivity::class.java.simpleName
-    var latitude=""
-    var longitude=""
+    var latitude = ""
+    var longitude = ""
 /*    private var kProgress: KProgressHUD? = null
 
     }*/
@@ -46,6 +47,7 @@ abstract class BaseActivity : AppCompatActivity() {
     val userPreferences: PreferenceManager by lazy {
         PreferenceManager(this)
     }
+
     fun getEpochTime(): Long {
         val millis = System.currentTimeMillis()
         val seconds = millis / 1000
@@ -83,8 +85,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
 
-
-
     private val mDialog: KProgressHUD by lazy {
         KProgressHUD.create(this).apply {
             setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -93,6 +93,36 @@ abstract class BaseActivity : AppCompatActivity() {
             setDimAmount(0.5f)
         }
     }
+
+
+
+
+
+
+
+    fun getDistanceFromCurrentPosition(
+        lat1: Double,
+        lng1: Double,
+        lat2: Double,
+        lng2: Double
+    ): Float {
+        val earthRadius = 3958.75
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLng = Math.toRadians(lng2 - lng1)
+        val a = (sin(dLat / 2) * sin(dLat / 2)
+                + (cos(Math.toRadians(lat1))
+                * cos(Math.toRadians(lat2)) * sin(dLng / 2)
+                * sin(dLng / 2)))
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        val dist = earthRadius * c
+        val meterConversion = 1609
+        return (dist * meterConversion.toFloat()).toFloat()
+    }
+
+
+
+
+
 
     fun getDateFromTimeStamp(timeStamp: String): Date {
         var cal = Calendar.getInstance();
@@ -108,9 +138,6 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         return date;
     }
-
-
-
 
 
 /*private val mDialog: Dialog by lazy {
@@ -155,22 +182,21 @@ fun setDefaultLatLng() {
         createNotificationChannel()
 
 
-
     }
 
 
-private fun generateFcmToken() {
-    FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-        if (!task.isSuccessful) {
-            return@OnCompleteListener
-        }
-        // Get new FCM registration token
-        val token = task.result
-        Log.e(TAG, "TOKEN ${token}")
-        userPreferences.saveDeviceToken(token)
+    private fun generateFcmToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            val token = task.result
+            Log.e(TAG, "TOKEN ${token}")
+            userPreferences.saveDeviceToken(token)
 
-    })
-}
+        })
+    }
 /*open fun openFragment(fragment: Fragment, tag: String) {
     addSlidingFragment(
      supportFragmentManager,
@@ -190,8 +216,6 @@ private fun generateFcmToken() {
             R.anim.slide_down_dialog
         ).add(container, fragment, tag).addToBackStack(null).commit()
     }
-
-
 
 
 /*private fun createNotificationChannel() {
@@ -270,6 +294,7 @@ private fun generateFcmToken() {
         }
         return ret
     }
+
     fun disappearKeyboard() {
         val imm =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -282,6 +307,7 @@ private fun generateFcmToken() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
     open fun backBtnPressed(view: View?) {
         finish()
     }
@@ -359,9 +385,6 @@ private fun generateFcmToken() {
             string,
             Snackbar.LENGTH_SHORT
         ).show()
-
-
-
 
 
     }

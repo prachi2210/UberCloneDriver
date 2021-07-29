@@ -56,8 +56,9 @@ class AppRepository(var apiHelper: ApiHelper) {
 
     suspend fun startTrip(
         rideId: RequestBody?,
-        type: RequestBody?
-    ) = apiHelper.startTrip(rideId,type)
+        type: RequestBody?,
+        rideDistance: RequestBody?
+    ) = apiHelper.startTrip(rideId,type,rideDistance)
 
 
 

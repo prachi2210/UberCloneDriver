@@ -61,8 +61,9 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun startTrip(
       rideId: RequestBody?,
-      type: RequestBody?
-    ) = apiService.startTrip(rideId,type)
+      type: RequestBody?,
+      rideDistance: RequestBody?
+    ) = apiService.startTrip(rideId,type,rideDistance)
 
 
 

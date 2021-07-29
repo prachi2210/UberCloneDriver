@@ -40,7 +40,6 @@ class PreferenceManager(context: Context) {
     }
 
     fun savePhoto(photo: String?) {
-
         mEditor.putString(PHOTO, photo)
         mEditor.apply()
     }

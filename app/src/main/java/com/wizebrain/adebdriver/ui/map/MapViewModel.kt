@@ -53,7 +53,7 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
 
     fun acceptRideByDriver(
         driverRef: String, rideId: String,
-        type: String,
+        type: String,rideDistance:String
     ) = liveData(Dispatchers.IO)
     {
         val driverRef = driverRef.toRequestBody("multipart/form-data".toMediaType())
@@ -62,6 +62,8 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
         val rideId = rideId.toRequestBody("multipart/form-data".toMediaType())
 
         val type = type.toRequestBody("multipart/form-data".toMediaType())
+
+        val  rideDistance=rideDistance.toRequestBody("multipart/form-data".toMediaType())
 
         emit(Resource.loading(data = null))
         try {
@@ -112,17 +114,18 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
 
     fun startTrip(
         rideId: String,
-        type: String
+        type: String,rideDistance: String
     ) = liveData(Dispatchers.IO)
     {
         val rideId = rideId.toRequestBody("multipart/form-data".toMediaType())
         val type = type.toRequestBody("multipart/form-data".toMediaType())
+        val rideDistance = rideDistance.toRequestBody("multipart/form-data".toMediaType())
         emit(Resource.loading(data = null))
         try {
             emit(
                 Resource.success(
                     data = appRepository.startTrip(
-                        rideId, type
+                        rideId, type,rideDistance
                     )
                 )
             )

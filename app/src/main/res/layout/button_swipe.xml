@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeButtonContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/swipeButtonContainer"
     android:animateLayoutChanges="true">
+
 
 
     <View
         android:id="@+id/buttonSwipeableView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+
+
         android:background="@drawable/shape_scrolling_view_unchecked"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/slidingButtonIv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/slidingButtonIv" />
 
     <TextView
         android:id="@+id/buttonSwipeableTv"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:fontFamily="@font/poppins"
+        android:singleLine="true"
         android:gravity="center"
+        android:textSize="@dimen/_6ssp"
         android:paddingStart="@dimen/_5sdp"
         android:paddingEnd="@dimen/_5sdp"
-        android:singleLine="true"
+        android:fontFamily="@font/poppins"
         android:textColor="@color/white"
-        android:textSize="@dimen/_8ssp"
-
         app:layout_constraintBottom_toBottomOf="@+id/slidingButtonIv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/slidingButtonIv"
         tools:text="@string/unchecked_text" />
 
@@ -45,18 +46,12 @@
         android:id="@+id/slidingButtonIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/shape_unchecked_toggle"
-        android:padding="@dimen/_16sdp"
+        android:padding="16dp"
         android:src="@drawable/ic_play"
-
-
-        app:layout_constraintBottom_toBottomOf="@+id/buttonSwipeableView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonSwipeableView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

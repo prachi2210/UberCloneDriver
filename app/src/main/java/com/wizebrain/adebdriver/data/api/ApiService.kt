@@ -51,7 +51,8 @@ interface ApiService {
     @POST("api/v1/startTrip")
     suspend fun startTrip(
         @Part("rideId") rideId: RequestBody?,
-        @Part("type") type: RequestBody?
+        @Part("type") type: RequestBody?,
+        @Part("rideDistance") rideDistance: RequestBody?
     ): Response<MessageResponse>
 
 
@@ -96,12 +97,15 @@ interface ApiService {
     ): Response<GetBookingResponse>
 
 
+// @Part("rideDistance") rideDistance: RequestBody?,
+    /*rideDistance*/
     @Multipart
     @POST("api/v1/acceptRideByDriver")
     suspend fun acceptRideByDriver(
         @Part("driverRef") driverRef: RequestBody?,
         @Part("rideId") rideId: RequestBody?,
         @Part("type") type: RequestBody?,
+
     ): Response<RideAcceptResponse>
 
 
@@ -163,6 +167,10 @@ interface ApiService {
         @Part("userRef") userRef: RequestBody?,
         @Part("type") type: RequestBody?,
     ): Response<MessageResponse>
+
+
+
+
 
 
 }

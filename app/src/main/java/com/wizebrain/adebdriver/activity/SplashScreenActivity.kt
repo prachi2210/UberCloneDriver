@@ -28,7 +28,6 @@ class SplashScreenActivity : BaseActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Log.e(TAG, "userRef ${userPreferences.getUserREf()}")
-
         checkBundle()
         moveToDestination()
 
@@ -40,11 +39,7 @@ class SplashScreenActivity : BaseActivity() {
     }
 
     private fun moveToDestination() {
-
-
         /**/
-
-
         val bundle = intent.extras
         if (bundle != null) {
 

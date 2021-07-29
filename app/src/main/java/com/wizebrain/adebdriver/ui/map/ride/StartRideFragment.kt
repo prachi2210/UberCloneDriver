@@ -103,7 +103,7 @@ class StartRideFragment : BaseFragment(), View.OnClickListener {
             }
             binding.tvCloseFragment -> {
                 //always close on this position
-                callback?.openClose(0)
+                callback?.openClose(1)
             }
 
 
