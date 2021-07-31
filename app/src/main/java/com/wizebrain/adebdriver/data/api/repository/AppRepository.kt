@@ -115,6 +115,18 @@ class AppRepository(var apiHelper: ApiHelper) {
         password: RequestBody?
     ) = apiHelper.createNewPassword(phoneNumber, password)
 
+    suspend fun driverStatus(
+        driverRef: RequestBody?,
+
+        ) = apiHelper.driverStatus(driverRef)
+
+
+
+    suspend fun driverStats(
+        driverRef: RequestBody?,
+
+        ) = apiHelper.driverStats(driverRef)
+
 
     suspend fun uploadDrivingLicense(
         userRef: RequestBody?,

@@ -7,6 +7,7 @@ import com.wizebrain.adebdriver.ui.map.response.GetBookingResponse
 import com.wizebrain.adebdriver.ui.map.response.RideAcceptResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -97,7 +98,7 @@ interface ApiService {
     ): Response<GetBookingResponse>
 
 
-// @Part("rideDistance") rideDistance: RequestBody?,
+    // @Part("rideDistance") rideDistance: RequestBody?,
     /*rideDistance*/
     @Multipart
     @POST("api/v1/acceptRideByDriver")
@@ -106,7 +107,7 @@ interface ApiService {
         @Part("rideId") rideId: RequestBody?,
         @Part("type") type: RequestBody?,
 
-    ): Response<RideAcceptResponse>
+        ): Response<RideAcceptResponse>
 
 
     @Multipart
@@ -118,13 +119,41 @@ interface ApiService {
     ): Response<MessageResponse>
 
 
+    //driver location update
+
+    //local firebase notification
+
+
+    @Multipart
+    @POST("api/v1/driverLocationUpdate")
+    fun driverLocationUpdateII(
+        @Part("driverRef") driverRef: RequestBody?,
+        @Part("latitude") latitude: RequestBody?,
+        @Part("longitude") longitude: RequestBody?,
+    ): Call<MessageResponse>
+
+
+    @Multipart
+    @POST("api/v1/driverStatus")
+    suspend  fun driverStatus(
+        @Part("driverRef") driverRef: RequestBody?,
+
+    ): Call<MessageResponse>
+
+
+    @Multipart
+    @POST("api/v1/driverStats")
+    suspend  fun driverStats(
+        @Part("driverRef") driverRef: RequestBody?,
+
+        ): Call<MessageResponse>
+
     @Multipart
     @POST("api/v1/CreateNewPassword")
     suspend fun createNewPassword(
         @Part("phoneNumber") phoneNumber: RequestBody?,
         @Part("password") password: RequestBody?
     ): Response<MessageResponse>
-
 
 
     @Multipart
@@ -167,10 +196,6 @@ interface ApiService {
         @Part("userRef") userRef: RequestBody?,
         @Part("type") type: RequestBody?,
     ): Response<MessageResponse>
-
-
-
-
 
 
 }

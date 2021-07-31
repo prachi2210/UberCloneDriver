@@ -1,7 +1,6 @@
 package com.wizebrain.adebdriver.ui.map
 
 import android.Manifest
-import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.*
 import android.content.pm.PackageManager
@@ -44,6 +43,7 @@ import com.wizebrain.adebdriver.utils.ActivityStarter
 import com.wizebrain.adebdriver.utils.Constants
 import com.wizebrain.adebdriver.utils.PermissionUtils
 import com.wizebrain.adebdriver.utils.Status
+import kotlin.collections.ArrayList
 
 
 class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReadyCallback,
@@ -72,8 +72,8 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
     var clientRiderPickupAddress = ""
     var clientRiderDropOffAddress = ""
     private lateinit var jobScheduler: JobScheduler
-    private var destinationLatitude:String=""
-    private var  destinationLogitude:String=""
+    private var destinationLatitude: String = ""
+    private var destinationLogitude: String = ""
 
 
     companion object {
@@ -155,7 +155,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
             PermissionUtils.isAccessFineLocationGranted(this) -> {
                 when {
                     PermissionUtils.isLocationEnabled(this) -> {
-                        setUpLocationListener()
+                        setUpLocationListener(false)
                     }
                     else -> {
                         PermissionUtils.showGPSNotEnabledDialog(this)
@@ -199,10 +199,9 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
     var locationUpdateBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            Log.e(TAG, "onBroadCastReceiver before intent${intent}")
+            Log.e(TAG, "locationUpdateBroadcastReceiver before intent${intent}")
             //location update
-
-            setUpLocationListener()
+            setUpLocationListener(true)
 
 
         }
@@ -242,23 +241,59 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
         }
     }
 
+    private fun startService() {
+        val serviceIntent = Intent(this, UpdateLocationService::class.java)
+        serviceIntent.putExtra(Constants.USER_ID, userPreferences.getUserId())
+        ContextCompat.startForegroundService(this, serviceIntent)
 
-    private fun startJobSchedular() {
+    /*    val pb = PersistableBundle()
+            pb.putString(Constants.USER_ID, userPreferences.getUserId())
         jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        val jobInfo = JobInfo.Builder(123, ComponentName(this, UpdateLocationService::class.java))
-        val job = jobInfo.setRequiresCharging(false)
-            .setMinimumLatency(1)
+        *//*    val jobInfo = JobInfo.Builder(1, ComponentName(this, UpdateLocationService::class.java))
+            .setExtras(pb)
+
+
+        val job = jobInfo.setRequiresCharging(true)
+           // .setMinimumLatency(1000)
+            //.setOverrideDeadline(2000)
+            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+            .setRequiresCharging(true)
+           // .setPeriodic(2000)
+            .build();
+
+      //  .build()
+
+        jobScheduler.schedule(job)*//*
+
+        val builder = JobInfo.Builder(
+            1,
+            ComponentName(
+                packageName,
+                UpdateLocationService::class.java.name
+            )
+        ).setPeriodic(3000)
+            .setExtras(pb)
+            .setRequiresCharging(true)
             .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-            .setOverrideDeadline(3 * 60 * 1000).build()
-
-        jobScheduler.schedule(job)
+            .build()
+ *//* if (jobScheduler.schedule(builder.build()) <= 0) {
+            Log.e(TAG, "onCreate: Some error while scheduling the job")
+        }*//*
+        jobScheduler.schedule(builder)*/
     }
 
-    private fun stopJobSchedular() {
-        if (jobScheduler != null) {
-            jobScheduler.cancelAll()
-        }
+
+    private fun stopService() {
+        val serviceIntent = Intent(this, UpdateLocationService::class.java)
+        stopService(serviceIntent)
+        erasePolylines()
     }
+
+
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -288,7 +323,7 @@ class DriverMapActivityScreen : BaseActivity(), View.OnClickListener, OnMapReady
 
 
         requestPermission()
-        setUpLocationListener()
+        setUpLocationListener(false)
 
         if (intent.hasExtra(Constants.NAME)) {
 
@@ -445,7 +480,7 @@ startActivity(intent)*/
                     when {
                         PermissionUtils.isLocationEnabled(this) -> {
                             locationPermission = true
-                            setUpLocationListener()
+                            setUpLocationListener(false)
                         }
                         else -> {
                             locationPermission = true
@@ -659,7 +694,7 @@ startActivity(intent)*/
         binding.frameRideStart.hide()
         erasePolylines()
         viewModel.startTrip(
-            rideId, "0","10"
+            rideId, "0", "10"
         ).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -674,6 +709,7 @@ startActivity(intent)*/
                                     rideInfo?.userRef.toString(),
                                     rideInfo?.userName.toString()
                                 )
+                                stopService()
 
 
                             } else {
@@ -696,7 +732,7 @@ startActivity(intent)*/
 
     private fun startTrip(rideId: String) {
         viewModel.startTrip(
-            rideId, "1","10"
+            rideId, "1", "10"
 
         ).observe(this, Observer {
             it?.let { resource ->
@@ -709,7 +745,7 @@ startActivity(intent)*/
                                 //Nothing happen start routing
 
                                 binding.tvOpenFragment.text = getString(R.string.end_your_trip)
-                                startJobSchedular()
+                                startService()
 
                                 ///service and routing code should present
 
@@ -783,8 +819,8 @@ startActivity(intent)*/
                                     binding.tvOpenFragment.text =
                                         getString(R.string.start_your_trip)
 
-                                    destinationLatitude= rideInfo?.dropOffLat.toString()
-                                    destinationLogitude= rideInfo?.dropOffLog.toString()
+                                    destinationLatitude = rideInfo?.dropOffLat.toString()
+                                    destinationLogitude = rideInfo?.dropOffLog.toString()
 
 
                                     //here type 0 defines that you have started the ride after accepting it
@@ -957,14 +993,12 @@ startActivity(intent)*/
         }
 
 
-
-
     private fun stopLocationUpdates() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
 
-    private fun setUpLocationListener() {
+    private fun setUpLocationListener(broadCastReceive: Boolean) {
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         // for getting the current location update after every 2 seconds with high accuracy
         val locationRequest =
@@ -1003,7 +1037,25 @@ startActivity(intent)*/
                                 googleMap!!.addMarker(markerOptions)
                             }
 
+
+                            if (broadCastReceive) {
+                                Log.e(
+                                    TAG,
+                                    "Destination lat $destinationLatitude lng $destinationLogitude"
+                                )
+                                var startLatLong = LatLng(location.latitude, location.longitude)
+                                var endLatLong = LatLng(
+                                    destinationLatitude.toDouble(),
+                                    destinationLogitude.toDouble()
+                                )
+                                findRoutes(startLatLong, endLatLong)
+
+                            }
+
+
                         }
+
+
                     }
 
                     // Few more things we can do here:

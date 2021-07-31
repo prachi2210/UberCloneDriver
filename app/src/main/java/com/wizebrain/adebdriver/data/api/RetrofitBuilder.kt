@@ -28,7 +28,7 @@ object RetrofitBuilder {
             }.build()
 
 
-    private fun getRetrofit(): Retrofit {
+     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(httpClient)
@@ -37,6 +37,6 @@ object RetrofitBuilder {
     }
 
 
-    val apiService: ApiService = getRetrofit().create(ApiService::class.java)
+  public  val apiService: ApiService = getRetrofit().create(ApiService::class.java)
 
 }

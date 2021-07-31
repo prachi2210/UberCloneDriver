@@ -50,7 +50,7 @@ class DriverProfileActivity : BaseActivity(), ProfileAdapter.ProfileViewListener
         drawableicons = resources.obtainTypedArray(R.array.driver_module_drawable_icons);
         val profileAdapter: ProfileAdapter by lazy {
             ProfileAdapter(this, this, modulesArray, drawableicons)
-        }git
+        }
 
         if (userPreferences.getPhoto().isNotEmpty())
             binding.imageDriver.loadImage(userPreferences.getPhoto())

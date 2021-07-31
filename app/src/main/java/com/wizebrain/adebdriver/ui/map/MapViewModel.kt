@@ -6,12 +6,11 @@ import com.wizebrain.adebdriver.data.api.repository.AppRepository
 import com.wizebrain.adebdriver.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
-
-
 
 
     fun onlineStatusUpdate(userRef: String, type: String) = liveData(Dispatchers.IO)
@@ -32,6 +31,42 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
         }
     }
 
+    
+    fun driverStatus(userRef: String) = liveData(Dispatchers.IO)
+    {
+        val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.driverStatus(
+                        userRef
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
+
+    fun driverStats(userRef: String) = liveData(Dispatchers.IO)
+    {
+        val userRef = userRef.toRequestBody("multipart/form-data".toMediaType())
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = appRepository.driverStats(
+                        userRef
+                    )
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
 
 
     fun getBookingByDriver(driverRef: String) = liveData(Dispatchers.IO)
@@ -53,7 +88,7 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
 
     fun acceptRideByDriver(
         driverRef: String, rideId: String,
-        type: String,rideDistance:String
+        type: String, rideDistance: String
     ) = liveData(Dispatchers.IO)
     {
         val driverRef = driverRef.toRequestBody("multipart/form-data".toMediaType())
@@ -63,7 +98,7 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
 
         val type = type.toRequestBody("multipart/form-data".toMediaType())
 
-        val  rideDistance=rideDistance.toRequestBody("multipart/form-data".toMediaType())
+        val rideDistance = rideDistance.toRequestBody("multipart/form-data".toMediaType())
 
         emit(Resource.loading(data = null))
         try {
@@ -114,7 +149,7 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
 
     fun startTrip(
         rideId: String,
-        type: String,rideDistance: String
+        type: String, rideDistance: String
     ) = liveData(Dispatchers.IO)
     {
         val rideId = rideId.toRequestBody("multipart/form-data".toMediaType())
@@ -125,7 +160,7 @@ class MapViewModel(private val appRepository: AppRepository) : ViewModel() {
             emit(
                 Resource.success(
                     data = appRepository.startTrip(
-                        rideId, type,rideDistance
+                        rideId, type, rideDistance
                     )
                 )
             )

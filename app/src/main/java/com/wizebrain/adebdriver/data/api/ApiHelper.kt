@@ -4,6 +4,7 @@ import com.wizebrain.adebdriver.data.api.ApiService
 import com.wizebrain.adebdriver.ui.auth.response.MessageResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -120,6 +121,20 @@ class ApiHelper(private val apiService: ApiService) {
         phoneNumber: RequestBody?,
         password: RequestBody?
     ) = apiService.createNewPassword(phoneNumber, password)
+
+
+    suspend fun driverStatus(
+        driverRef: RequestBody?,
+
+        ) = apiService.driverStatus(driverRef)
+
+
+
+    suspend fun driverStats(
+        driverRef: RequestBody?,
+
+        ) = apiService.driverStats(driverRef)
+
 
 
     suspend fun uploadDrivingLicense(
